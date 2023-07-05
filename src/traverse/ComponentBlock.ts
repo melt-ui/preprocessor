@@ -15,13 +15,13 @@ export function traverseComponentBlock({ compBlockNode, config }: TraverseEachBl
 	const compBlockIdentifiers = new Set<string>();
 	const leftOverActions: TemplateNode[] = [];
 
-	// get all of the `let:data` attributes
+	// extracts all the identifiers from the `let:data` attributes
 	walk(compBlockNode.attributes, {
 		enter(letNode) {
 			if (letNode.type !== 'Let') return;
 
-			// if it's just `let:data`, then `data` is the identifier
 			if (letNode.expression === null) {
+				// if it's just `let:data`, then `data` is the identifier
 				compBlockIdentifiers.add(letNode.name);
 			} else {
 				// otherwise, get all the identifiers found in the expression `let:data={expression}`
@@ -32,7 +32,7 @@ export function traverseComponentBlock({ compBlockNode, config }: TraverseEachBl
 		},
 	});
 
-	// Determines if those identifiers are scoped to this block
+	// determine if those identifiers are scoped to this block
 	traverseBlock({
 		blockIdentifiers: compBlockIdentifiers,
 		blockNode: compBlockNode,

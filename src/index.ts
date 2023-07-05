@@ -15,7 +15,26 @@ export type PreprocessOptions = {
 };
 
 /**
- * This is a PP that does something. We'll figure that out soon enough.
+ * A preprocessor for Melt UI.
+ *
+ * Intelligently replaces all instance of `use:melt={builder}` with the correct spread syntax,
+ * providing a sleeker developer experience.
+ *
+ * Simply add it to the end of your array of preprocessors.
+ * @example
+ * ```js
+ * // svelte.config.js
+ * import { preprocessMeltUI } from '@melt-ui/pp';
+ *
+ * const config = {
+ * 	// ... other svelte config options
+ * 	preprocess: [
+ * 		// ... other preprocessors
+ * 		preprocessMeltUI() // add to the end!
+ * 	]
+ * 	// ...
+ * };
+ * ```
  */
 export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup {
 	return {
@@ -56,8 +75,8 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 			let identifiersToInsert = '';
 			for (const builder of config.builders) {
 				let identifier = '';
-				// if the user just passed in an identifier, just use that
 				if ('identifierName' in builder) {
+					// if the user just passed in an identifier, just use that
 					identifier = builder.identifierName;
 				} else {
 					// otherwise, we'll take the expression and hoist it into the script node
@@ -73,7 +92,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 				});
 			}
 
-			// Inject the hoisted expressions into the script node
+			// inject the hoisted expressions into the script node
 			if (identifiersToInsert) {
 				if (scriptContentNode) {
 					// insert the new identifiers into the end of the script tag
@@ -96,7 +115,9 @@ type HandleTopLevelActionArgs = {
 	actionNode: TemplateNode;
 	config: Config;
 };
-/** Adds the builder */
+/**
+ * Constructs the Builder and adds it to its list.
+ */
 function handleTopLevelAction(args: HandleTopLevelActionArgs) {
 	const { actionNode, config } = args;
 	let identifierName: string | undefined;

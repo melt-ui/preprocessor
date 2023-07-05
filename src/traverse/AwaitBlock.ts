@@ -25,7 +25,7 @@ export function traverseAwaitBlock({ awaitBlockNode, config }: TraverseAwaitBloc
 		awaitBlockIdentifiers.add(identifier)
 	);
 
-	// figure out if those identifiers are being used in the melt action expression
+	// determine if those identifiers are being used in the melt action's expression
 	traverseBlock({
 		blockIdentifiers: awaitBlockIdentifiers,
 		blockNode: awaitBlockNode.then,

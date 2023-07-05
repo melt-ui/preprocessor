@@ -27,10 +27,10 @@ export function traverseBlock(args: BlockArgs) {
 	const { blockNode, blockIdentifiers, config, leftOverActions } = args;
 	if (blockNode.children === undefined) return;
 
-	// figure out if those identifiers are being used in the melt action expression
+	// walk the children to determine if the block's provided identifiers are
+	// being used in the melt action's expression
 	walk(blockNode.children, {
 		enter(node: TemplateNode) {
-			// if it's an action, handle it
 			if (
 				node.type === 'Action' &&
 				isAliasedAction(node.name, config.alias) &&
@@ -62,6 +62,7 @@ export function traverseBlock(args: BlockArgs) {
 				});
 			}
 
+			// only want to walk over the direct children, so we'll skip the rest
 			this.skip();
 		},
 	});

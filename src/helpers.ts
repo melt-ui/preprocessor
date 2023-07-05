@@ -14,7 +14,7 @@ export function getMeltBuilderName(i: number) {
 	return `__MELTUI_BUILDER_${i}__`;
 }
 
-// Excuse the mess...
+// excuse the mess...
 type Enter = Parameters<typeof svelte_walk>[1]['enter'];
 type EnterParams = Parameters<NonNullable<Enter>>;
 type Leave = Parameters<typeof svelte_walk>[1]['leave'];
@@ -41,7 +41,7 @@ export function walk<AST extends TemplateNode | Array<Node>, Node extends Templa
 	ast: AST,
 	args: WalkerArgs<Node>
 ) {
-	// @ts-expect-error do this once so i don't have to keep doing this
+	// @ts-expect-error do this once so i don't have to keep adding these ignores
 	return svelte_walk(ast, args);
 }
 
