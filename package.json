@@ -19,7 +19,8 @@
 		"build": "tsup",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"lint:write": "prettier --plugin-search-dir . --write . && eslint . --fix",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"check": "tsc --noEmit"
 	},
 	"keywords": [],
 	"author": "",
