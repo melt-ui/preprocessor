@@ -15,6 +15,7 @@ type BlockArgs = {
 	leftOverActions: TemplateNode[];
 	config: Config;
 };
+
 /**
  * Traverses any given block and checks if there are any identifiers
  * that exist in it's child `melt` action's expression.
@@ -75,7 +76,8 @@ type HandleActionNodeArgs = {
 };
 
 /**
- * Injects the `{@const}` block as a child of the provided node.
+ * Injects the `{@const}` block as a child of the provided block node. If there's nothing
+ * to inject, it will add the provided node to the list of leftover actions.
  */
 function handleActionNode({
 	config,
@@ -98,7 +100,9 @@ function handleActionNode({
 
 		// const
 		for (const identifier of expressionIdentifiers) {
-			if (!knownIdentifiers.has(identifier)) continue;
+			if (!knownIdentifiers.has(identifier)) {
+				continue;
+			}
 
 			// make this into a {@const} block
 			const start = blockNode.children?.at(0)?.start;
@@ -119,11 +123,13 @@ function handleActionNode({
 			break;
 		}
 
+		// if no {@const} block was injected, add it to the list of untouched actions
 		if (inserted === false) {
-			// add it to the list of untouched actions
 			leftOverActions.push(actionNode);
 		}
 	} else {
+		// if it's just an identifier, add it to the list of builders so that it can
+		// later be transformed into the correct syntax
 		config.builders.push({
 			identifierName: expression.name,
 			startPos: actionNode.start,
