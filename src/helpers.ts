@@ -1,8 +1,8 @@
-import { walk } from 'svelte/compiler';
-import { traverse } from './traverse';
+import { walk as svelte_walk } from 'svelte/compiler';
+import { traverse } from './traverse/index.js';
 
-import type { Config, Node } from './types';
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
+import type { Config, Node } from './types.js';
 
 export function isAliasedAction(name: string, alias: string | string[]): boolean {
 	if (typeof alias === 'string') {
@@ -13,6 +13,37 @@ export function isAliasedAction(name: string, alias: string | string[]): boolean
 
 export function getMeltBuilderName(i: number) {
 	return `__MELTUI_BUILDER_${i}__`;
+}
+
+// Excuse the mess...
+type Enter = Parameters<typeof svelte_walk>[1]['enter'];
+type EnterParams = Parameters<NonNullable<Enter>>;
+type Leave = Parameters<typeof svelte_walk>[1]['leave'];
+type WalkerContext = {
+	skip: () => void;
+	remove: () => void;
+	replace: (node: Node) => void;
+};
+type WalkerArgs<Node extends TemplateNode> = {
+	enter?: (
+		this: WalkerContext,
+		node: Node,
+		parent: EnterParams[1],
+		key: EnterParams[2],
+		index: EnterParams[3]
+	) => void;
+	leave?: Leave;
+};
+/**
+ * Enhances the param types of the estree-walker's `walk` function
+ * as it doesn't want to accept Svelte's provided `TemplateNode` type.
+ */
+export function walk<AST extends TemplateNode | Array<Node>, Node extends TemplateNode>(
+	ast: AST,
+	args: WalkerArgs<Node>
+) {
+	// @ts-expect-error do this once so i don't have to keep doing this
+	return svelte_walk(ast, args);
 }
 
 /**
@@ -49,9 +80,9 @@ type BlockArgs = {
  */
 export function traverseBlock(args: BlockArgs) {
 	const { blockNode, blockIdentifiers, config, leftOverActions } = args;
+	if (blockNode.children === undefined) return;
 
 	// figure out if those identifiers are being used in the melt action expression
-	// @ts-expect-error same issue
 	walk(blockNode.children, {
 		enter(node: TemplateNode) {
 			// if it's an action, handle it
