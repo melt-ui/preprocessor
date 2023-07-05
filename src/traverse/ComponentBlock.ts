@@ -1,8 +1,8 @@
-import { extractIdentifiers, traverseBlock } from './helpers';
-import { walk } from 'svelte/compiler';
+import { extractIdentifiers, walk } from '../helpers.js';
+import { traverseBlock } from './Block.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from './types';
+import type { Config } from '../types.js';
 
 type TraverseEachBlockArgs = {
 	compBlockNode: TemplateNode;
@@ -15,14 +15,13 @@ export function traverseComponentBlock({ compBlockNode, config }: TraverseEachBl
 	const compBlockIdentifiers = new Set<string>();
 	const leftOverActions: TemplateNode[] = [];
 
-	// get all of the `let:data` attributes
+	// extracts all the identifiers from the `let:data` attributes
 	walk(compBlockNode.attributes, {
-		// @ts-expect-error doesn't accept template nodes
-		enter(letNode: TemplateNode) {
+		enter(letNode) {
 			if (letNode.type !== 'Let') return;
 
-			// if it's just `let:data`, then `data` is the identifier
 			if (letNode.expression === null) {
+				// if it's just `let:data`, then `data` is the identifier
 				compBlockIdentifiers.add(letNode.name);
 			} else {
 				// otherwise, get all the identifiers found in the expression `let:data={expression}`
@@ -33,7 +32,7 @@ export function traverseComponentBlock({ compBlockNode, config }: TraverseEachBl
 		},
 	});
 
-	// Determines if those identifiers are scoped to this block
+	// determine if those identifiers are scoped to this block
 	traverseBlock({
 		blockIdentifiers: compBlockIdentifiers,
 		blockNode: compBlockNode,

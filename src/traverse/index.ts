@@ -1,11 +1,10 @@
-import { traverseEachBlock } from './EachBlock';
-import { isAliasedAction } from './helpers';
-import { traverseAwaitBlock } from './AwaitBlock';
-import { traverseComponentBlock } from './ComponentBlock';
-import { walk } from 'svelte/compiler';
+import { traverseEachBlock } from './EachBlock.js';
+import { traverseAwaitBlock } from './AwaitBlock.js';
+import { traverseComponentBlock } from './ComponentBlock.js';
+import { isAliasedAction, walk } from '../helpers.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from './types';
+import type { Config } from '../types';
 
 type TraverseArgs = {
 	baseNode: TemplateNode;
@@ -14,10 +13,9 @@ type TraverseArgs = {
 export function traverse({ baseNode, config }: TraverseArgs) {
 	const actions: TemplateNode[] = [];
 
-	// @ts-expect-error idk why it doesn't accept an ast
 	walk(baseNode, {
 		enter(node: TemplateNode) {
-			// If there's an each block that contains an expression,
+			// if there's an each block that contains an expression,
 			// add a {@const identifier = expression}
 			if (node.type === 'EachBlock') {
 				const leftOverActions = traverseEachBlock({ eachBlockNode: node, config });
@@ -27,7 +25,7 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 				this.skip();
 			}
 
-			// Components with a let:identifier
+			// components with a let:identifier
 			if (
 				(node.type === 'InlineComponent' || node.type === 'SlotTemplate') &&
 				node.children &&
@@ -40,6 +38,7 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 				this.skip();
 			}
 
+			// {#await} blocks
 			if (node.type === 'AwaitBlock') {
 				// check identifiers in the then and catch block, if present
 				const leftOverActions = traverseAwaitBlock({ awaitBlockNode: node, config });
@@ -49,7 +48,7 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 				this.skip();
 			}
 
-			// Top Level Action
+			// top level Actions
 			if (
 				node.type === 'Action' &&
 				isAliasedAction(node.name, config.alias) &&

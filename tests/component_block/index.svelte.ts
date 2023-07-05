@@ -110,33 +110,21 @@ $: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 
 export const basicIdentifier = `
 <script>
-	import { writable } from 'svelte/store';
 	import { melt } from './index';
-
-	const builder = writable({
-		role: 'Mock',
-		action: () => {},
-	});
 </script>
 
 <Component let:builder>
-	<div use:melt={$builder} />
+	<div use:melt={builder} />
 </Component>
 `;
 
 export const basicIdentifierExpected = `
 <script>
-	import { writable } from 'svelte/store';
 	import { melt } from './index';
-
-	const builder = writable({
-		role: 'Mock',
-		action: () => {},
-	});
 </script>
 
 <Component let:builder>
-	<div {...{...$builder, action: undefined}} use:$builder.action />
+	<div {...{...builder, action: undefined}} use:builder.action />
 </Component>
 `;
 

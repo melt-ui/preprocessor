@@ -1,9 +1,7 @@
-import { walk } from 'svelte/compiler';
-import { handleActionNode } from './Action';
-import { traverse } from './traverse';
+import { walk as svelte_walk } from 'svelte/compiler';
 
-import type { Config, Node } from './types';
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
+import type { Node } from './types.js';
 
 export function isAliasedAction(name: string, alias: string | string[]): boolean {
 	if (typeof alias === 'string') {
@@ -16,10 +14,43 @@ export function getMeltBuilderName(i: number) {
 	return `__MELTUI_BUILDER_${i}__`;
 }
 
+// excuse the mess...
+type Enter = Parameters<typeof svelte_walk>[1]['enter'];
+type EnterParams = Parameters<NonNullable<Enter>>;
+type Leave = Parameters<typeof svelte_walk>[1]['leave'];
+type WalkerContext = {
+	skip: () => void;
+	remove: () => void;
+	replace: (node: Node) => void;
+};
+type WalkerArgs<Node extends TemplateNode> = {
+	enter?: (
+		this: WalkerContext,
+		node: Node,
+		parent: EnterParams[1],
+		key: EnterParams[2],
+		index: EnterParams[3]
+	) => void;
+	leave?: Leave;
+};
+/**
+ * Enhances the param types of the estree-walker's `walk` function
+ * as it doesn't want to accept Svelte's provided `TemplateNode` type.
+ */
+export function walk<AST extends TemplateNode | Array<Node>, Node extends TemplateNode>(
+	ast: AST,
+	args: WalkerArgs<Node>
+) {
+	// @ts-expect-error do this once so i don't have to keep adding these ignores
+	return svelte_walk(ast, args);
+}
+
 /**
  * Extracts all the identifiers found in the expression.
  */
-export function extractIdentifiers<Expression extends Node>(expression: Expression) {
+export function extractIdentifiers<Expression extends TemplateNode>(
+	expression: Expression
+) {
 	const identifiers = new Set<string>();
 	// get all the identifiers found in the expression
 	walk(expression, {
@@ -36,58 +67,4 @@ export function extractIdentifiers<Expression extends Node>(expression: Expressi
 	});
 
 	return identifiers;
-}
-
-type BlockArgs = {
-	blockNode: TemplateNode;
-	blockIdentifiers: Set<string>;
-	leftOverActions: TemplateNode[];
-	config: Config;
-};
-/**
- * Traverses any given block and checks if there are any identifiers
- * that belong to the melt action expression.
- */
-export function traverseBlock(args: BlockArgs) {
-	const { blockNode, blockIdentifiers, config, leftOverActions } = args;
-
-	// figure out if those identifiers are being used in the melt action expression
-	// @ts-expect-error same issue
-	walk(blockNode.children, {
-		enter(node: TemplateNode) {
-			// if it's an action, handle it
-			if (
-				node.type === 'Action' &&
-				isAliasedAction(node.name, config.alias) &&
-				node.expression !== null // assigned to something
-			) {
-				handleActionNode({
-					actionNode: node,
-					knownIdentifiers: blockIdentifiers,
-					blockNode,
-					config,
-					leftOverActions,
-				});
-
-				// we don't have to walk the Action's children
-				this.skip();
-				return;
-			}
-
-			// if it's anything else, walk again
-			const returnedActions = traverse({ baseNode: node, config });
-
-			for (const actionNode of returnedActions) {
-				handleActionNode({
-					knownIdentifiers: blockIdentifiers,
-					actionNode,
-					blockNode,
-					config,
-					leftOverActions,
-				});
-			}
-
-			this.skip();
-		},
-	});
 }
