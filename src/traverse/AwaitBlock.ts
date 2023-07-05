@@ -1,7 +1,8 @@
-import { extractIdentifiers, traverseBlock } from './helpers';
+import { extractIdentifiers } from '../helpers.js';
+import { traverseBlock } from './Block.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from './types';
+import type { Config } from '../types.js';
 
 type TraverseAwaitBlockArgs = {
 	awaitBlockNode: TemplateNode;
@@ -24,7 +25,7 @@ export function traverseAwaitBlock({ awaitBlockNode, config }: TraverseAwaitBloc
 		awaitBlockIdentifiers.add(identifier)
 	);
 
-	// figure out if those identifiers are being used in the melt action expression
+	// determine if those identifiers are being used in the melt action's expression
 	traverseBlock({
 		blockIdentifiers: awaitBlockIdentifiers,
 		blockNode: awaitBlockNode.then,

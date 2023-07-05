@@ -1,10 +1,10 @@
-import { parse, walk, type PreprocessorGroup } from 'svelte/compiler';
 import MagicString from 'magic-string';
-import { getMeltBuilderName } from './helpers';
-import { traverse } from './traverse';
+import { parse, type PreprocessorGroup } from 'svelte/compiler';
+import { getMeltBuilderName, walk } from './helpers.js';
+import { traverse } from './traverse/index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config, Node } from './types';
+import type { Config, Node } from './types.js';
 
 export type PreprocessOptions = {
 	/**
@@ -15,7 +15,26 @@ export type PreprocessOptions = {
 };
 
 /**
- * This is a PP that does something. We'll figure that out soon enough.
+ * A preprocessor for Melt UI.
+ *
+ * Intelligently replaces all instance of `use:melt={builder}` with the correct spread syntax,
+ * providing a sleeker developer experience.
+ *
+ * Simply add it to the end of your array of preprocessors.
+ * @example
+ * ```js
+ * // svelte.config.js
+ * import { preprocessMeltUI } from '@melt-ui/pp';
+ *
+ * const config = {
+ * 	// ... other svelte config options
+ * 	preprocess: [
+ * 		// ... other preprocessors
+ * 		preprocessMeltUI() // add to the end!
+ * 	]
+ * 	// ...
+ * };
+ * ```
  */
 export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup {
 	return {
@@ -34,9 +53,8 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			// Grab the Script node so we can inject any hoisted expressions later
 			if (ast.instance) {
-				// @ts-expect-error idk why it doesn't accept an ast
 				walk(ast.instance, {
-					enter(node: TemplateNode) {
+					enter(node) {
 						if (node.type === 'Script' && node.context === 'default') {
 							scriptContentNode = node.content as { start: number; end: number };
 						}
@@ -57,8 +75,8 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 			let identifiersToInsert = '';
 			for (const builder of config.builders) {
 				let identifier = '';
-				// if the user just passed in an identifier, just use that
 				if ('identifierName' in builder) {
+					// if the user just passed in an identifier, just use that
 					identifier = builder.identifierName;
 				} else {
 					// otherwise, we'll take the expression and hoist it into the script node
@@ -74,7 +92,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 				});
 			}
 
-			// Inject the hoisted expressions into the script node
+			// inject the hoisted expressions into the script node
 			if (identifiersToInsert) {
 				if (scriptContentNode) {
 					// insert the new identifiers into the end of the script tag
@@ -97,7 +115,9 @@ type HandleTopLevelActionArgs = {
 	actionNode: TemplateNode;
 	config: Config;
 };
-/** Adds the builder */
+/**
+ * Constructs the Builder and adds it to its list.
+ */
 function handleTopLevelAction(args: HandleTopLevelActionArgs) {
 	const { actionNode, config } = args;
 	let identifierName: string | undefined;
