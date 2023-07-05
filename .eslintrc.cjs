@@ -7,10 +7,10 @@ module.exports = {
 	overrides: [],
 	env: {
 		es2017: true,
-		node: true
+		node: true,
 	},
 	rules: {
 		'no-empty-function': 'off',
-		'@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }]
-	}
+		'@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
+	},
 };
