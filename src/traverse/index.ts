@@ -1,7 +1,7 @@
 import { traverseEachBlock } from './EachBlock.js';
-import { isAliasedAction, walk } from '../helpers.js';
 import { traverseAwaitBlock } from './AwaitBlock.js';
 import { traverseComponentBlock } from './ComponentBlock.js';
+import { isAliasedAction, walk } from '../helpers.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Config } from '../types';

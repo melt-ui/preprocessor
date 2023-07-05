@@ -1,4 +1,5 @@
-import { extractIdentifiers, traverseBlock, walk } from '../helpers.js';
+import { extractIdentifiers, walk } from '../helpers.js';
+import { traverseBlock } from './Block.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Config } from '../types.js';
