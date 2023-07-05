@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"lib": ["ES2022"],
+		"target": "ES2022",
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"paths": {
+			"$pkg/*": ["./src/*"]
+		}
+	},
+	"include": ["src", "tests"]
+}
