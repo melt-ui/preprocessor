@@ -1,6 +1,6 @@
 {
 	"name": "@melt-ui/pp",
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"description": "",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.mts",
@@ -20,7 +20,8 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"lint:write": "prettier --plugin-search-dir . --write . && eslint . --fix",
 		"format": "prettier --plugin-search-dir . --write .",
-		"check": "tsc --noEmit"
+		"check": "tsc --noEmit",
+		"release": "pnpm build"
 	},
 	"keywords": [],
 	"author": "",
