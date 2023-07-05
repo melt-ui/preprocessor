@@ -1,8 +1,7 @@
-import { extractIdentifiers, traverseBlock } from './helpers';
-import { walk } from 'svelte/compiler';
+import { extractIdentifiers, traverseBlock, walk } from '../helpers.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from './types';
+import type { Config } from '../types.js';
 
 type TraverseEachBlockArgs = {
 	compBlockNode: TemplateNode;
@@ -17,8 +16,7 @@ export function traverseComponentBlock({ compBlockNode, config }: TraverseEachBl
 
 	// get all of the `let:data` attributes
 	walk(compBlockNode.attributes, {
-		// @ts-expect-error doesn't accept template nodes
-		enter(letNode: TemplateNode) {
+		enter(letNode) {
 			if (letNode.type !== 'Let') return;
 
 			// if it's just `let:data`, then `data` is the identifier

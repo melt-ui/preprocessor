@@ -1,10 +1,10 @@
-import { parse, walk, type PreprocessorGroup } from 'svelte/compiler';
 import MagicString from 'magic-string';
-import { getMeltBuilderName } from './helpers';
-import { traverse } from './traverse';
+import { parse, type PreprocessorGroup } from 'svelte/compiler';
+import { getMeltBuilderName, walk } from './helpers.js';
+import { traverse } from './traverse/index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config, Node } from './types';
+import type { Config, Node } from './types.js';
 
 export type PreprocessOptions = {
 	/**
@@ -34,9 +34,8 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			// Grab the Script node so we can inject any hoisted expressions later
 			if (ast.instance) {
-				// @ts-expect-error idk why it doesn't accept an ast
 				walk(ast.instance, {
-					enter(node: TemplateNode) {
+					enter(node) {
 						if (node.type === 'Script' && node.context === 'default') {
 							scriptContentNode = node.content as { start: number; end: number };
 						}
