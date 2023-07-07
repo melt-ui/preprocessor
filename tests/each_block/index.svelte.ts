@@ -12,7 +12,7 @@ export const basicEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div use:melt={$builder({ arg1: item, arg2: '' })} />
+	<div melt={$builder({ arg1: item, arg2: '' })} />
 {/each}
 `;
 
@@ -48,7 +48,7 @@ export const controlEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+	<div melt={$builder({ arg1: 1, arg2: '' })} />
 {/each}
 `;
 
@@ -84,7 +84,7 @@ export const basicIdentifierEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div use:melt={$builder} />
+	<div melt={$builder} />
 {/each}
 `;
 
@@ -118,7 +118,7 @@ export const duplicateEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div use:melt={$builder({ arg1: item, arg2: item })} />
+	<div melt={$builder({ arg1: item, arg2: item })} />
 {/each}
 `;
 
@@ -154,7 +154,7 @@ export const destructuredEach = `
 </script>
 
 {#each [{item1: 1, item2: 1}, {item1: 2, item2: 2}, {item1: 3, item2: 3}] as {item1, item2}}
-	<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
+	<div melt={$builder({ arg1: item1, arg2: item2 })} />
 {/each}
 `;
 
@@ -191,7 +191,7 @@ export const scopedEach = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item}
-		<div use:melt={$builder({ arg1: item, arg2: '' })} />
+		<div melt={$builder({ arg1: item, arg2: '' })} />
 	{/each}
 {/each}
 `;
@@ -231,7 +231,7 @@ export const nestedEachUpper = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		<div use:melt={$builder({ arg1: item, arg2: '' })} />
+		<div melt={$builder({ arg1: item, arg2: '' })} />
 	{/each}
 {/each}
 `;
@@ -271,7 +271,7 @@ export const nestedEachLower = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		<div use:melt={$builder({ arg1: item2, arg2: '' })} />
+		<div melt={$builder({ arg1: item2, arg2: '' })} />
 	{/each}
 {/each}
 `;
@@ -311,7 +311,7 @@ export const nestedEachBoth = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		<div use:melt={$builder({ arg1: item, arg2: item2 })} />
+		<div melt={$builder({ arg1: item, arg2: item2 })} />
 	{/each}
 {/each}
 `;

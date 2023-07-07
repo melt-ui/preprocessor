@@ -11,7 +11,7 @@ export const callExpression = `
 	});
 </script>
 
-<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+<div melt={$builder({ arg1: 1, arg2: '' })} />
 `;
 
 export const callExpressionExpected = `
@@ -45,7 +45,7 @@ export const objExpression = `
 	});
 </script>
 
-<div use:melt={{ ...$builder({ arg1: 1, arg2: '' }) }} />
+<div melt={{ ...$builder({ arg1: 1, arg2: '' }) }} />
 `;
 
 export const objExpressionExpected = `
@@ -79,9 +79,9 @@ export const multiExpressions = `
 	});
 </script>
 
-<div use:melt={$builder({ arg1: 1, arg2: '' })} />
-<div use:melt={$builder({ arg1: 1, arg2: '' })} />
-<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+<div melt={$builder({ arg1: 1, arg2: '' })} />
+<div melt={$builder({ arg1: 1, arg2: '' })} />
+<div melt={$builder({ arg1: 1, arg2: '' })} />
 `;
 
 export const multiExpressionsExpected = `
