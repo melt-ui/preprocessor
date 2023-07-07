@@ -9,7 +9,7 @@ export const simple = `
 	});
 </script>
 
-<div use:melt={$builder} />
+<div melt={$builder} />
 `;
 
 export const simpleExpected = `
@@ -47,8 +47,8 @@ export const aliased = `
 	const expressionAlias = $expressionBuilder({ arg1: 1, arg2: '' });
 </script>
 
-<div use:melt={alias} />
-<div use:melt={expressionAlias} />
+<div melt={alias} />
+<div melt={expressionAlias} />
 `;
 
 export const aliasedExpected = `

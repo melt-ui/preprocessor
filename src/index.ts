@@ -17,7 +17,7 @@ export type PreprocessOptions = {
 /**
  * A preprocessor for Melt UI.
  *
- * Intelligently replaces all instance of `use:melt={builder}` with the correct spread syntax,
+ * Intelligently replaces all instances of `melt={$builder}` with the correct spread syntax,
  * providing a sleeker developer experience.
  *
  * Simply add it to the end of your array of preprocessors.
@@ -86,7 +86,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 				const attributes = `{...{...${identifier}, action: undefined}} use:${identifier}.action`;
 
-				// replace the `use:melt={...}` with the attributes
+				// replace the `melt={...}` with the attributes
 				config.markup.overwrite(builder.startPos, builder.endPos, attributes, {
 					storeName: true,
 				});
@@ -121,11 +121,11 @@ type HandleTopLevelActionArgs = {
 function handleTopLevelAction(args: HandleTopLevelActionArgs) {
 	const { actionNode, config } = args;
 	let identifierName: string | undefined;
-	const expression = actionNode.expression as Node;
+	const expression = actionNode.value[0].expression as Node;
 
 	if (expression.type === 'Identifier') {
 		// only an identifier was passed
-		// i.e. use:melt={$builder}
+		// i.e. melt={$builder}
 		identifierName = expression.name;
 		config.builders.push({
 			identifierName,
@@ -134,7 +134,7 @@ function handleTopLevelAction(args: HandleTopLevelActionArgs) {
 		});
 	} else {
 		// any other expression type...
-		// i.e. use:melt={$builder({ arg1: '', arg2: '' })}
+		// i.e. melt={$builder({ arg1: '', arg2: '' })}
 		config.builders.push({
 			expression: {
 				startPos: expression.start,

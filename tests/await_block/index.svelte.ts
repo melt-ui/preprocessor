@@ -14,9 +14,9 @@ export const basicAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div use:melt={$builder({ arg1: item, arg2: '' })} />
+	<div melt={$builder({ arg1: item, arg2: '' })} />
 {:catch error}
-	<div use:melt={$builder({ arg1: error, arg2: '' })} />
+	<div melt={$builder({ arg1: error, arg2: '' })} />
 {/await}
 `;
 
@@ -56,9 +56,9 @@ export const basicShorthandAwait = `
 </script>
 
 {#await promise then item}
-	<div use:melt={$builder({ arg1: item, arg2: '' })} />
+	<div melt={$builder({ arg1: item, arg2: '' })} />
 {:catch error}
-	<div use:melt={$builder({ arg1: error, arg2: '' })} />
+	<div melt={$builder({ arg1: error, arg2: '' })} />
 {/await}
 `;
 
@@ -98,9 +98,9 @@ export const controlAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+	<div melt={$builder({ arg1: 1, arg2: '' })} />
 {:catch error}
-	<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+	<div melt={$builder({ arg1: 1, arg2: '' })} />
 {/await}
 `;
 
@@ -143,9 +143,9 @@ export const basicIdentifierAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div use:melt={$builder} />
+	<div melt={$builder} />
 {:catch error}
-	<div use:melt={$builder} />
+	<div melt={$builder} />
 {/await}
 `;
 
@@ -185,9 +185,9 @@ export const duplicateIdentifierAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div use:melt={$builder({ arg1: item, arg2: item })} />
+	<div melt={$builder({ arg1: item, arg2: item })} />
 {:catch error}
-	<div use:melt={$builder({ arg1: error, arg2: error })} />
+	<div melt={$builder({ arg1: error, arg2: error })} />
 {/await}
 `;
 
@@ -229,9 +229,9 @@ export const destructuredAwait = `
 {#await promise}
 	<div />
 {:then {item1, item2}}
-	<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
+	<div melt={$builder({ arg1: item1, arg2: item2 })} />
 {:catch {error1, error2}}
-	<div use:melt={$builder({ arg1: error1, arg2: error2 })} />
+	<div melt={$builder({ arg1: error1, arg2: error2 })} />
 {/await}
 `;
 
@@ -271,18 +271,18 @@ export const scopedAwait = `
 </script>
 
 {#await promise then item}
-	<div use:melt={$builder({ arg1: item, arg2: '' })} />
+	<div melt={$builder({ arg1: item, arg2: '' })} />
 	{#await promise then item}
-		<div use:melt={$builder({ arg1: item, arg2: '' })} />
+		<div melt={$builder({ arg1: item, arg2: '' })} />
 	{:catch error}
-		<div use:melt={$builder({ arg1: error, arg2: '' })} />
+		<div melt={$builder({ arg1: error, arg2: '' })} />
 	{/await}
 {:catch error}
-	<div use:melt={$builder({ arg1: error, arg2: '' })} />
+	<div melt={$builder({ arg1: error, arg2: '' })} />
 	{#await promise2 then item}
-		<div use:melt={$builder({ arg1: item, arg2: '' })} />
+		<div melt={$builder({ arg1: item, arg2: '' })} />
 	{:catch error}
-		<div use:melt={$builder({ arg1: error, arg2: '' })} />
+		<div melt={$builder({ arg1: error, arg2: '' })} />
 	{/await}
 {/await}
 `;
@@ -332,15 +332,15 @@ export const nestedAwaitUpper = `
 
 {#await promise then item}
 	{#await promise then item2}
-		<div use:melt={$builder({ arg1: item, arg2: '' })} />
+		<div melt={$builder({ arg1: item, arg2: '' })} />
 	{:catch error}
-		<div use:melt={$builder({ arg1: item, arg2: '' })} />
+		<div melt={$builder({ arg1: item, arg2: '' })} />
 	{/await}
 {:catch error1}
 	{#await promise then item}
-		<div use:melt={$builder({ arg1: error1, arg2: '' })} />
+		<div melt={$builder({ arg1: error1, arg2: '' })} />
 	{:catch error2}
-		<div use:melt={$builder({ arg1: error1, arg2: '' })} />
+		<div melt={$builder({ arg1: error1, arg2: '' })} />
 	{/await}
 {/await}
 `;
@@ -388,7 +388,7 @@ export const nestedAwaitLower = `
 
 {#await promise then item}
 	{#await promise then item2}
-		<div use:melt={$builder({ arg1: item2, arg2: '' })} />
+		<div melt={$builder({ arg1: item2, arg2: '' })} />
 	{/await}
 {/await}
 `;
@@ -428,7 +428,7 @@ export const nestedAwaitBoth = `
 
 {#await promise then item}
 	{#await promise then item2}
-		<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
+		<div melt={$builder({ arg1: item1, arg2: item2 })} />
 	{/await}
 {/await}
 `;

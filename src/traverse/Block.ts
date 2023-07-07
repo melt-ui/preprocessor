@@ -87,12 +87,12 @@ function handleActionNode({
 	knownIdentifiers,
 	blockNode,
 }: HandleActionNodeArgs) {
-	const expression = actionNode.expression as TemplateNode;
+	const expression = actionNode.value[0].expression as TemplateNode;
 	const expressionIdentifiers = new Set<string>();
 	let inserted = false;
 
 	// any other expression type...
-	// i.e. use:melt={$builder({ arg1: '', arg2: '' })}
+	// i.e. melt={$builder({ arg1: '', arg2: '' })}
 	if (expression.type !== 'Identifier') {
 		const expressionContent = config.content.substring(expression.start, expression.end);
 		extractIdentifiers(expression).forEach((identifier) =>

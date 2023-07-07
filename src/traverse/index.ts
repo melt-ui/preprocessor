@@ -50,9 +50,11 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 
 			// top level Actions
 			if (
-				node.type === 'Action' &&
+				node.type === 'Attribute' &&
 				isAliasedAction(node.name, config.alias) &&
-				node.expression !== null // assigned to something
+				node.value[0] &&
+				node.value[0].type === 'MustacheTag' &&
+				node.value[0].expression !== null // assigned to something
 			) {
 				actions.push(node);
 				// we don't have to walk the Action's children

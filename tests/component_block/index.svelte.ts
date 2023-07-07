@@ -12,7 +12,7 @@ export const basicComponent = `
 </script>
 
 <Component let:data={item}>
-	<div use:melt={$builder({ arg1: item, arg2: '' })} />
+	<div melt={$builder({ arg1: item, arg2: '' })} />
 </Component>
 `;
 
@@ -48,7 +48,7 @@ export const basicShorthand = `
 </script>
 
 <Component let:item>
-	<div use:melt={$builder({ arg1: item, arg2: '' })} />
+	<div melt={$builder({ arg1: item, arg2: '' })} />
 </Component>
 `;
 
@@ -84,7 +84,7 @@ export const control = `
 </script>
 
 <Component let:item>
-	<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+	<div melt={$builder({ arg1: 1, arg2: '' })} />
 </Component>
 `;
 
@@ -114,7 +114,7 @@ export const basicIdentifier = `
 </script>
 
 <Component let:builder>
-	<div use:melt={builder} />
+	<div melt={builder} />
 </Component>
 `;
 
@@ -142,7 +142,7 @@ export const duplicateIdentifier = `
 </script>
 
 <Component let:item>
-	<div use:melt={$builder({ arg1: item, arg2: item })} />
+	<div melt={$builder({ arg1: item, arg2: item })} />
 </Component>
 `;
 
@@ -178,7 +178,7 @@ export const destructured = `
 </script>
 
 <Component let:item={{item1, item2}}>
-	<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
+	<div melt={$builder({ arg1: item1, arg2: item2 })} />
 </Component>
 `;
 
@@ -215,7 +215,7 @@ export const scoped = `
 
 <Component let:item>
 	<Component let:item>
-		<div use:melt={$builder({ arg1: item, arg2: '' })} />
+		<div melt={$builder({ arg1: item, arg2: '' })} />
 	</Component>
 </Component>
 `;
@@ -255,7 +255,7 @@ export const nestedUpper = `
 
 <Component let:item1>
 	<Component let:item2>
-		<div use:melt={$builder({ arg1: item1, arg2: '' })} />
+		<div melt={$builder({ arg1: item1, arg2: '' })} />
 	</Component>
 </Component>
 `;
@@ -295,7 +295,7 @@ export const nestedLower = `
 
 <Component let:item1>
 	<Component let:item2>
-		<div use:melt={$builder({ arg1: item2, arg2: '' })} />
+		<div melt={$builder({ arg1: item2, arg2: '' })} />
 	</Component>
 </Component>
 `;
@@ -335,7 +335,7 @@ export const nestedBoth = `
 
 <Component let:item1>
 	<Component let:item2>
-		<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
+		<div melt={$builder({ arg1: item1, arg2: item2 })} />
 	</Component>
 </Component>
 `;
@@ -375,7 +375,7 @@ export const slotTemplate = `
 
 <Component let:item1>
 	<svelte:fragment slot="name" let:item2>
-		<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
+		<div melt={$builder({ arg1: item1, arg2: item2 })} />
 	</svelte:fragment>
 </Component>
 `;
