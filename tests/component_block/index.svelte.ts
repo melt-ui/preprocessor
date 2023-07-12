@@ -1,7 +1,6 @@
 export const basicComponent = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -19,7 +18,6 @@ export const basicComponent = `
 export const basicComponentExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -37,7 +35,6 @@ export const basicComponentExpected = `
 export const basicShorthand = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -55,7 +52,6 @@ export const basicShorthand = `
 export const basicShorthandExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -73,7 +69,6 @@ export const basicShorthandExpected = `
 export const control = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -91,7 +86,6 @@ export const control = `
 export const controlExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -109,20 +103,12 @@ $: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 `;
 
 export const basicIdentifier = `
-<script>
-	import { melt } from './index';
-</script>
-
 <Component let:builder>
 	<div melt={builder} />
 </Component>
 `;
 
 export const basicIdentifierExpected = `
-<script>
-	import { melt } from './index';
-</script>
-
 <Component let:builder>
 	<div {...{...builder, action: undefined}} use:builder.action />
 </Component>
@@ -131,7 +117,6 @@ export const basicIdentifierExpected = `
 export const duplicateIdentifier = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -149,7 +134,6 @@ export const duplicateIdentifier = `
 export const duplicateIdentifierExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -167,7 +151,6 @@ export const duplicateIdentifierExpected = `
 export const destructured = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -185,7 +168,6 @@ export const destructured = `
 export const destructuredExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -203,7 +185,6 @@ export const destructuredExpected = `
 export const scoped = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -223,7 +204,6 @@ export const scoped = `
 export const scopedExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -243,7 +223,6 @@ export const scopedExpected = `
 export const nestedUpper = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -263,7 +242,6 @@ export const nestedUpper = `
 export const nestedUpperExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -283,7 +261,6 @@ export const nestedUpperExpected = `
 export const nestedLower = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -303,7 +280,6 @@ export const nestedLower = `
 export const nestedLowerExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -323,7 +299,6 @@ export const nestedLowerExpected = `
 export const nestedBoth = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -343,7 +318,6 @@ export const nestedBoth = `
 export const nestedBothExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -363,7 +337,6 @@ export const nestedBothExpected = `
 export const slotTemplate = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -383,7 +356,6 @@ export const slotTemplate = `
 export const slotTemplateExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {

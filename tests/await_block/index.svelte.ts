@@ -1,7 +1,6 @@
 export const basicAwait = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -23,7 +22,6 @@ export const basicAwait = `
 export const basicAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -45,7 +43,6 @@ export const basicAwaitExpected = `
 export const basicShorthandAwait = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -65,7 +62,6 @@ export const basicShorthandAwait = `
 export const basicShorthandAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -85,7 +81,6 @@ export const basicShorthandAwaitExpected = `
 export const controlAwait = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -107,7 +102,6 @@ export const controlAwait = `
 export const controlAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -132,7 +126,6 @@ $: __MELTUI_BUILDER_1__ = $builder({ arg1: 1, arg2: '' });
 export const basicIdentifierAwait = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable({
 		role: 'Mock',
@@ -152,7 +145,6 @@ export const basicIdentifierAwait = `
 export const basicIdentifierAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable({
 		role: 'Mock',
@@ -172,7 +164,6 @@ export const basicIdentifierAwaitExpected = `
 export const duplicateIdentifierAwait = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -194,7 +185,6 @@ export const duplicateIdentifierAwait = `
 export const duplicateIdentifierAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -216,7 +206,6 @@ export const duplicateIdentifierAwaitExpected = `
 export const destructuredAwait = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -238,7 +227,6 @@ export const destructuredAwait = `
 export const destructuredAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -260,7 +248,6 @@ export const destructuredAwaitExpected = `
 export const scopedAwait = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -290,7 +277,6 @@ export const scopedAwait = `
 export const scopedAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -320,7 +306,6 @@ export const scopedAwaitExpected = `
 export const nestedAwaitUpper = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -348,7 +333,6 @@ export const nestedAwaitUpper = `
 export const nestedAwaitUpperExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -376,7 +360,6 @@ export const nestedAwaitUpperExpected = `
 export const nestedAwaitLower = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -396,7 +379,6 @@ export const nestedAwaitLower = `
 export const nestedAwaitLowerExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -416,7 +398,6 @@ export const nestedAwaitLowerExpected = `
 export const nestedAwaitBoth = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -436,7 +417,6 @@ export const nestedAwaitBoth = `
 export const nestedAwaitBothExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
