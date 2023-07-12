@@ -1,7 +1,6 @@
 export const simple = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable({
 		role: 'Mock',
@@ -15,7 +14,6 @@ export const simple = `
 export const simpleExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable({
 		role: 'Mock',
@@ -29,7 +27,6 @@ export const simpleExpected = `
 export const aliased = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable({
 		role: 'Mock',
@@ -54,7 +51,6 @@ export const aliased = `
 export const aliasedExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable({
 		role: 'Mock',

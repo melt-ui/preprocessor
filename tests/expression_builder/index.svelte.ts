@@ -1,7 +1,6 @@
 export const callExpression = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -17,7 +16,6 @@ export const callExpression = `
 export const callExpressionExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -35,7 +33,6 @@ $: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 export const objExpression = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -51,7 +48,6 @@ export const objExpression = `
 export const objExpressionExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -69,7 +65,6 @@ $: __MELTUI_BUILDER_0__ = { ...$builder({ arg1: 1, arg2: '' }) };
 export const multiExpressions = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -87,7 +82,6 @@ export const multiExpressions = `
 export const multiExpressionsExpected = `
 <script>
 	import { writable } from 'svelte/store';
-	import { melt } from './index';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
