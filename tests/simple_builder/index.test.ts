@@ -1,6 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
-import { simple, simpleExpected, aliased, aliasedExpected } from './index.svelte';
+import {
+	simple,
+	simpleExpected,
+	aliased,
+	aliasedExpected,
+	ignore,
+	ignoreExpected,
+} from './index.svelte';
 
 describe('Simple Builder - Identifiers', () => {
 	const { markup } = preprocessMeltUI();
@@ -20,5 +27,13 @@ describe('Simple Builder - Identifiers', () => {
 		});
 
 		expect(processed?.code).toBe(aliasedExpected);
+	});
+
+	it('ignore component props', async () => {
+		const processed = await markup({
+			content: ignore,
+		});
+
+		expect(processed?.code).toBe(ignoreExpected);
 	});
 });

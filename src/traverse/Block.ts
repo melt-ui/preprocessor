@@ -30,9 +30,10 @@ export function traverseBlock(args: BlockArgs) {
 	// walk the children to determine if the block's provided identifiers are
 	// being used in the melt action's expression
 	walk(blockNode.children, {
-		enter(node: TemplateNode) {
+		enter(node, parent) {
 			if (
-				node.type === 'Action' &&
+				parent?.type !== 'InlineComponent' && // we don't want to process component props
+				node.type === 'Attribute' &&
 				isAliasedAction(node.name, config.alias) &&
 				node.expression !== null // assigned to something
 			) {

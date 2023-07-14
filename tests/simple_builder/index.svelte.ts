@@ -71,3 +71,45 @@ export const aliasedExpected = `
 <div {...{...alias, action: undefined}} use:alias.action />
 <div {...{...expressionAlias, action: undefined}} use:expressionAlias.action />
 `;
+
+export const ignore = `
+<script>
+	import { writable } from 'svelte/store';
+	import Comp from "./Comp.svelte";
+
+	const builder = writable({
+		role: 'Mock',
+		action: () => {},
+	});
+</script>
+
+<div melt={$builder} />
+
+<Comp melt={$builder} />
+<Comp melt={builder} />
+
+<Comp melt={$builder}>
+	<div melt={$builder} />
+</Comp>
+`;
+
+export const ignoreExpected = `
+<script>
+	import { writable } from 'svelte/store';
+	import Comp from "./Comp.svelte";
+
+	const builder = writable({
+		role: 'Mock',
+		action: () => {},
+	});
+</script>
+
+<div {...{...$builder, action: undefined}} use:$builder.action />
+
+<Comp melt={$builder} />
+<Comp melt={builder} />
+
+<Comp melt={$builder}>
+	<div {...{...$builder, action: undefined}} use:$builder.action />
+</Comp>
+`;
