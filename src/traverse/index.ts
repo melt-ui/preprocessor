@@ -14,7 +14,7 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 	const actions: TemplateNode[] = [];
 
 	walk(baseNode, {
-		enter(node: TemplateNode) {
+		enter(node, parent) {
 			// if there's an each block that contains an expression,
 			// add a {@const identifier = expression}
 			if (node.type === 'EachBlock') {
@@ -50,6 +50,7 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 
 			// top level Actions
 			if (
+				parent?.type !== 'InlineComponent' && // we don't want to process component props
 				node.type === 'Attribute' &&
 				isAliasedAction(node.name, config.alias) &&
 				node.value[0] &&

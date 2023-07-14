@@ -27,7 +27,7 @@ type WalkerArgs<Node extends TemplateNode> = {
 	enter?: (
 		this: WalkerContext,
 		node: Node,
-		parent: EnterParams[1],
+		parent: Node | null,
 		key: EnterParams[2],
 		index: EnterParams[3]
 	) => void;
