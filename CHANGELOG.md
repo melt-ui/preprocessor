@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.0.4
+
+### Patch Changes
+
+- f15c55c: fix: Don't process `melt` props for Svelte Components
+
 ## 0.0.3
 
 ### Patch Changes
