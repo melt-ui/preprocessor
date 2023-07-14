@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.0.3
+
+### Patch Changes
+
+- 249f0ea: added `@melt-ui/svelte` as a peer dependency
+
 ## 0.0.2
 
 ### Patch Changes
