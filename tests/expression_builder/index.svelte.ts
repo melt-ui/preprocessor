@@ -27,7 +27,7 @@ export const callExpressionExpected = `
 $: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 </script>
 
-<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 `;
 
 export const objExpression = `
@@ -59,7 +59,7 @@ export const objExpressionExpected = `
 $: __MELTUI_BUILDER_0__ = { ...$builder({ arg1: 1, arg2: '' }) };
 </script>
 
-<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 `;
 
 export const multiExpressions = `
@@ -95,7 +95,7 @@ $: __MELTUI_BUILDER_1__ = $builder({ arg1: 1, arg2: '' });
 $: __MELTUI_BUILDER_2__ = $builder({ arg1: 1, arg2: '' });
 </script>
 
-<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
-<div {...{...__MELTUI_BUILDER_1__, action: undefined}} use:__MELTUI_BUILDER_1__.action />
-<div {...{...__MELTUI_BUILDER_2__, action: undefined}} use:__MELTUI_BUILDER_2__.action />
+<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
+<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
+<div {...__MELTUI_BUILDER_2__} use:__MELTUI_BUILDER_2__.action />
 `;

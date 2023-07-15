@@ -21,7 +21,7 @@ export const simpleExpected = `
 	});
 </script>
 
-<div {...{...$builder, action: undefined}} use:$builder.action />
+<div {...$builder} use:$builder.action />
 `;
 
 export const aliased = `
@@ -68,8 +68,8 @@ export const aliasedExpected = `
 	const expressionAlias = $expressionBuilder({ arg1: 1, arg2: '' });
 </script>
 
-<div {...{...alias, action: undefined}} use:alias.action />
-<div {...{...expressionAlias, action: undefined}} use:expressionAlias.action />
+<div {...alias} use:alias.action />
+<div {...expressionAlias} use:expressionAlias.action />
 `;
 
 export const ignore = `
@@ -104,12 +104,12 @@ export const ignoreExpected = `
 	});
 </script>
 
-<div {...{...$builder, action: undefined}} use:$builder.action />
+<div {...$builder} use:$builder.action />
 
 <Comp melt={$builder} />
 <Comp melt={builder} />
 
 <Comp melt={$builder}>
-	<div {...{...$builder, action: undefined}} use:$builder.action />
+	<div {...$builder} use:$builder.action />
 </Comp>
 `;

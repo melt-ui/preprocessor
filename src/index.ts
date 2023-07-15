@@ -84,7 +84,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 					identifiersToInsert += `$: ${identifier} = ${builder.expression.contents};\n`;
 				}
 
-				const attributes = `{...{...${identifier}, action: undefined}} use:${identifier}.action`;
+				const attributes = `{...${identifier}} use:${identifier}.action`;
 
 				// replace the `melt={...}` with the attributes
 				config.markup.overwrite(builder.startPos, builder.endPos, attributes, {
