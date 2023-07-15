@@ -28,7 +28,7 @@ export const basicEachExpected = `
 </script>
 
 {#each [1, 2, 3] as item}
-	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 {/each}
 `;
 
@@ -64,7 +64,7 @@ $: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 </script>
 
 {#each [1, 2, 3] as item}
-	<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 {/each}
 `;
 
@@ -94,7 +94,7 @@ export const basicIdentifierEachExpected = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div {...{...$builder, action: undefined}} use:$builder.action />
+	<div {...$builder} use:$builder.action />
 {/each}
 `;
 
@@ -128,7 +128,7 @@ export const duplicateEachExpected = `
 </script>
 
 {#each [1, 2, 3] as item}
-	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: item })}<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: item })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 {/each}
 `;
 
@@ -162,7 +162,7 @@ export const destructuredEachExpected = `
 </script>
 
 {#each [{item1: 1, item2: 1}, {item1: 2, item2: 2}, {item1: 3, item2: 3}] as {item1, item2}}
-	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: item2 })}<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: item2 })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 {/each}
 `;
 
@@ -199,7 +199,7 @@ export const scopedEachExpected = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item}
-		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/each}
 {/each}
 `;
@@ -237,7 +237,7 @@ export const nestedEachUpperExpected = `
 
 {#each [1, 2, 3] as item}
 	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}{#each [4, 5, 6] as item2}
-		<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+		<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/each}
 {/each}
 `;
@@ -275,7 +275,7 @@ export const nestedEachLowerExpected = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item2, arg2: '' })}<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item2, arg2: '' })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/each}
 {/each}
 `;
@@ -313,7 +313,7 @@ export const nestedEachBothExpected = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: item2 })}<div {...{...__MELTUI_BUILDER_0__, action: undefined}} use:__MELTUI_BUILDER_0__.action />
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: item2 })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/each}
 {/each}
 `;
