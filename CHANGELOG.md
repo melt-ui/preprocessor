@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.0.5
+
+### Patch Changes
+
+- e71d27d: simplifies the transformed output
+
 ## 0.0.4
 
 ### Patch Changes
