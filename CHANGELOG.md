@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.0.6
+
+### Patch Changes
+
+- e7111f6: Fixed peer dependency for `@melt-ui/svelte`
+
 ## 0.0.5
 
 ### Patch Changes
