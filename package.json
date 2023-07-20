@@ -44,6 +44,6 @@
 	},
 	"peerDependencies": {
 		"svelte": "^3.55.0 || ^4.0.0",
-		"@melt-ui/svelte": "^0.22.0"
+		"@melt-ui/svelte": ">= 0.22.0"
 	}
 }
