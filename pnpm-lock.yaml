@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@melt-ui/svelte':
-    specifier: ^0.22.0
+    specifier: '>= 0.22.0'
     version: 0.22.0(svelte@4.0.0)
 
 devDependencies:
