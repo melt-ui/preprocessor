@@ -72,7 +72,7 @@ export const aliasedExpected = `
 <div {...expressionAlias} use:expressionAlias.action />
 `;
 
-export const ignore = `
+export const ignoreComps = `
 <script>
 	import { writable } from 'svelte/store';
 	import Comp from "./Comp.svelte";
@@ -93,7 +93,7 @@ export const ignore = `
 </Comp>
 `;
 
-export const ignoreExpected = `
+export const ignoreCompsExpected = `
 <script>
 	import { writable } from 'svelte/store';
 	import Comp from "./Comp.svelte";
@@ -111,5 +111,49 @@ export const ignoreExpected = `
 
 <Comp melt={$builder}>
 	<div {...$builder} use:$builder.action />
+</Comp>
+`;
+
+export const meltAlias = `
+<script>
+	import { writable } from 'svelte/store';
+	import Comp from "./Comp.svelte";
+
+	const builder = writable({
+		role: 'Mock',
+		action: () => {},
+	});
+
+	$: melt = $builder;
+</script>
+
+<div {melt} />
+
+<Comp {melt} />
+
+<Comp {melt}>
+	<div {melt} />
+</Comp>
+`;
+
+export const meltAliasExpected = `
+<script>
+	import { writable } from 'svelte/store';
+	import Comp from "./Comp.svelte";
+
+	const builder = writable({
+		role: 'Mock',
+		action: () => {},
+	});
+
+	$: melt = $builder;
+</script>
+
+<div {...melt} use:melt.action />
+
+<Comp {melt} />
+
+<Comp {melt}>
+	<div {...melt} use:melt.action />
 </Comp>
 `;

@@ -5,8 +5,10 @@ import {
 	simpleExpected,
 	aliased,
 	aliasedExpected,
-	ignore,
-	ignoreExpected,
+	meltAlias,
+	meltAliasExpected,
+	ignoreComps,
+	ignoreCompsExpected,
 } from './index.svelte';
 
 describe('Simple Builder - Identifiers', () => {
@@ -29,11 +31,19 @@ describe('Simple Builder - Identifiers', () => {
 		expect(processed?.code).toBe(aliasedExpected);
 	});
 
-	it('ignore component props', async () => {
+	it('builder aliased as melt with AttributeShorthand', async () => {
 		const processed = await markup({
-			content: ignore,
+			content: meltAlias,
 		});
 
-		expect(processed?.code).toBe(ignoreExpected);
+		expect(processed?.code).toBe(meltAliasExpected);
+	});
+
+	it('ignore component props', async () => {
+		const processed = await markup({
+			content: ignoreComps,
+		});
+
+		expect(processed?.code).toBe(ignoreCompsExpected);
 	});
 });
