@@ -54,7 +54,8 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 				node.type === 'Attribute' &&
 				isAliasedAction(node.name, config.alias) &&
 				node.value[0] &&
-				node.value[0].type === 'MustacheTag' &&
+				(node.value[0].type === 'MustacheTag' ||
+					node.value[0].type === 'AttributeShorthand') && // handles shorthand {melt}
 				node.value[0].expression !== null // assigned to something
 			) {
 				actions.push(node);
