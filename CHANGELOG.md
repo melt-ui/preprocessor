@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.0.7
+
+### Patch Changes
+
+- b2dea2c: fix: Handle the shorthand notation for the `melt` attribute (ex: `<div {melt} />`)
+
 ## 0.0.6
 
 ### Patch Changes
