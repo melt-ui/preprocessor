@@ -50,13 +50,10 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 
 			// top level Actions
 			if (
-				parent?.type !== 'InlineComponent' && // we don't want to process component props
-				node.type === 'Attribute' &&
+				parent?.type !== 'InlineComponent' && // we don't want to process component props (even though Actions can only be applied to DOM elements)
+				node.type === 'Action' &&
 				isAliasedAction(node.name, config.alias) &&
-				node.value[0] &&
-				(node.value[0].type === 'MustacheTag' ||
-					node.value[0].type === 'AttributeShorthand') && // handles shorthand {melt}
-				node.value[0].expression !== null // assigned to something
+				node.expression !== null // assigned to something
 			) {
 				actions.push(node);
 				// we don't have to walk the Action's children
