@@ -1,6 +1,7 @@
 export const basicEach = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -11,13 +12,14 @@ export const basicEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div melt={$builder({ arg1: item, arg2: '' })} />
+	<div use:melt={$builder({ arg1: item, arg2: '' })} />
 {/each}
 `;
 
 export const basicEachExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -35,6 +37,7 @@ export const basicEachExpected = `
 export const controlEach = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -45,13 +48,14 @@ export const controlEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div melt={$builder({ arg1: 1, arg2: '' })} />
+	<div use:melt={$builder({ arg1: 1, arg2: '' })} />
 {/each}
 `;
 
 export const controlEachExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -71,6 +75,7 @@ $: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 export const basicIdentifierEach = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -79,13 +84,14 @@ export const basicIdentifierEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div melt={$builder} />
+	<div use:melt={$builder} />
 {/each}
 `;
 
 export const basicIdentifierEachExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -101,6 +107,7 @@ export const basicIdentifierEachExpected = `
 export const duplicateEach = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -111,13 +118,14 @@ export const duplicateEach = `
 </script>
 
 {#each [1, 2, 3] as item}
-	<div melt={$builder({ arg1: item, arg2: item })} />
+	<div use:melt={$builder({ arg1: item, arg2: item })} />
 {/each}
 `;
 
 export const duplicateEachExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -135,6 +143,7 @@ export const duplicateEachExpected = `
 export const destructuredEach = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -145,13 +154,14 @@ export const destructuredEach = `
 </script>
 
 {#each [{item1: 1, item2: 1}, {item1: 2, item2: 2}, {item1: 3, item2: 3}] as {item1, item2}}
-	<div melt={$builder({ arg1: item1, arg2: item2 })} />
+	<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
 {/each}
 `;
 
 export const destructuredEachExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -169,6 +179,7 @@ export const destructuredEachExpected = `
 export const scopedEach = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -180,7 +191,7 @@ export const scopedEach = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item}
-		<div melt={$builder({ arg1: item, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item, arg2: '' })} />
 	{/each}
 {/each}
 `;
@@ -188,6 +199,7 @@ export const scopedEach = `
 export const scopedEachExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -207,6 +219,7 @@ export const scopedEachExpected = `
 export const nestedEachUpper = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -218,7 +231,7 @@ export const nestedEachUpper = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		<div melt={$builder({ arg1: item, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item, arg2: '' })} />
 	{/each}
 {/each}
 `;
@@ -226,6 +239,7 @@ export const nestedEachUpper = `
 export const nestedEachUpperExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -245,6 +259,7 @@ export const nestedEachUpperExpected = `
 export const nestedEachLower = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -256,7 +271,7 @@ export const nestedEachLower = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		<div melt={$builder({ arg1: item2, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item2, arg2: '' })} />
 	{/each}
 {/each}
 `;
@@ -264,6 +279,7 @@ export const nestedEachLower = `
 export const nestedEachLowerExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -283,6 +299,7 @@ export const nestedEachLowerExpected = `
 export const nestedEachBoth = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -294,7 +311,7 @@ export const nestedEachBoth = `
 
 {#each [1, 2, 3] as item}
 	{#each [4, 5, 6] as item2}
-		<div melt={$builder({ arg1: item, arg2: item2 })} />
+		<div use:melt={$builder({ arg1: item, arg2: item2 })} />
 	{/each}
 {/each}
 `;
@@ -302,6 +319,7 @@ export const nestedEachBoth = `
 export const nestedEachBothExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {

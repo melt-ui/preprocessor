@@ -1,6 +1,7 @@
 export const basicAwait = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -13,15 +14,16 @@ export const basicAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div melt={$builder({ arg1: item, arg2: '' })} />
+	<div use:melt={$builder({ arg1: item, arg2: '' })} />
 {:catch error}
-	<div melt={$builder({ arg1: error, arg2: '' })} />
+	<div use:melt={$builder({ arg1: error, arg2: '' })} />
 {/await}
 `;
 
 export const basicAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -43,6 +45,7 @@ export const basicAwaitExpected = `
 export const basicShorthandAwait = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -53,15 +56,16 @@ export const basicShorthandAwait = `
 </script>
 
 {#await promise then item}
-	<div melt={$builder({ arg1: item, arg2: '' })} />
+	<div use:melt={$builder({ arg1: item, arg2: '' })} />
 {:catch error}
-	<div melt={$builder({ arg1: error, arg2: '' })} />
+	<div use:melt={$builder({ arg1: error, arg2: '' })} />
 {/await}
 `;
 
 export const basicShorthandAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -81,6 +85,7 @@ export const basicShorthandAwaitExpected = `
 export const controlAwait = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -93,15 +98,16 @@ export const controlAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div melt={$builder({ arg1: 1, arg2: '' })} />
+	<div use:melt={$builder({ arg1: 1, arg2: '' })} />
 {:catch error}
-	<div melt={$builder({ arg1: 1, arg2: '' })} />
+	<div use:melt={$builder({ arg1: 1, arg2: '' })} />
 {/await}
 `;
 
 export const controlAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -126,6 +132,7 @@ $: __MELTUI_BUILDER_1__ = $builder({ arg1: 1, arg2: '' });
 export const basicIdentifierAwait = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -136,15 +143,16 @@ export const basicIdentifierAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div melt={$builder} />
+	<div use:melt={$builder} />
 {:catch error}
-	<div melt={$builder} />
+	<div use:melt={$builder} />
 {/await}
 `;
 
 export const basicIdentifierAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -164,6 +172,7 @@ export const basicIdentifierAwaitExpected = `
 export const duplicateIdentifierAwait = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -176,15 +185,16 @@ export const duplicateIdentifierAwait = `
 {#await promise}
 	<div />
 {:then item}
-	<div melt={$builder({ arg1: item, arg2: item })} />
+	<div use:melt={$builder({ arg1: item, arg2: item })} />
 {:catch error}
-	<div melt={$builder({ arg1: error, arg2: error })} />
+	<div use:melt={$builder({ arg1: error, arg2: error })} />
 {/await}
 `;
 
 export const duplicateIdentifierAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -206,6 +216,7 @@ export const duplicateIdentifierAwaitExpected = `
 export const destructuredAwait = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -218,15 +229,16 @@ export const destructuredAwait = `
 {#await promise}
 	<div />
 {:then {item1, item2}}
-	<div melt={$builder({ arg1: item1, arg2: item2 })} />
+	<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
 {:catch {error1, error2}}
-	<div melt={$builder({ arg1: error1, arg2: error2 })} />
+	<div use:melt={$builder({ arg1: error1, arg2: error2 })} />
 {/await}
 `;
 
 export const destructuredAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -248,6 +260,7 @@ export const destructuredAwaitExpected = `
 export const scopedAwait = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -258,18 +271,18 @@ export const scopedAwait = `
 </script>
 
 {#await promise then item}
-	<div melt={$builder({ arg1: item, arg2: '' })} />
+	<div use:melt={$builder({ arg1: item, arg2: '' })} />
 	{#await promise then item}
-		<div melt={$builder({ arg1: item, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item, arg2: '' })} />
 	{:catch error}
-		<div melt={$builder({ arg1: error, arg2: '' })} />
+		<div use:melt={$builder({ arg1: error, arg2: '' })} />
 	{/await}
 {:catch error}
-	<div melt={$builder({ arg1: error, arg2: '' })} />
+	<div use:melt={$builder({ arg1: error, arg2: '' })} />
 	{#await promise2 then item}
-		<div melt={$builder({ arg1: item, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item, arg2: '' })} />
 	{:catch error}
-		<div melt={$builder({ arg1: error, arg2: '' })} />
+		<div use:melt={$builder({ arg1: error, arg2: '' })} />
 	{/await}
 {/await}
 `;
@@ -277,6 +290,7 @@ export const scopedAwait = `
 export const scopedAwaitExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -306,6 +320,7 @@ export const scopedAwaitExpected = `
 export const nestedAwaitUpper = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -317,15 +332,15 @@ export const nestedAwaitUpper = `
 
 {#await promise then item}
 	{#await promise then item2}
-		<div melt={$builder({ arg1: item, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item, arg2: '' })} />
 	{:catch error}
-		<div melt={$builder({ arg1: item, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item, arg2: '' })} />
 	{/await}
 {:catch error1}
 	{#await promise then item}
-		<div melt={$builder({ arg1: error1, arg2: '' })} />
+		<div use:melt={$builder({ arg1: error1, arg2: '' })} />
 	{:catch error2}
-		<div melt={$builder({ arg1: error1, arg2: '' })} />
+		<div use:melt={$builder({ arg1: error1, arg2: '' })} />
 	{/await}
 {/await}
 `;
@@ -333,6 +348,7 @@ export const nestedAwaitUpper = `
 export const nestedAwaitUpperExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -360,6 +376,7 @@ export const nestedAwaitUpperExpected = `
 export const nestedAwaitLower = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -371,7 +388,7 @@ export const nestedAwaitLower = `
 
 {#await promise then item}
 	{#await promise then item2}
-		<div melt={$builder({ arg1: item2, arg2: '' })} />
+		<div use:melt={$builder({ arg1: item2, arg2: '' })} />
 	{/await}
 {/await}
 `;
@@ -379,6 +396,7 @@ export const nestedAwaitLower = `
 export const nestedAwaitLowerExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -398,6 +416,7 @@ export const nestedAwaitLowerExpected = `
 export const nestedAwaitBoth = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {
@@ -409,7 +428,7 @@ export const nestedAwaitBoth = `
 
 {#await promise then item}
 	{#await promise then item2}
-		<div melt={$builder({ arg1: item1, arg2: item2 })} />
+		<div use:melt={$builder({ arg1: item1, arg2: item2 })} />
 	{/await}
 {/await}
 `;
@@ -417,6 +436,7 @@ export const nestedAwaitBoth = `
 export const nestedAwaitBothExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable(({ arg1, arg2 }) => {
 		return {

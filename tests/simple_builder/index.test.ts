@@ -5,8 +5,6 @@ import {
 	simpleExpected,
 	aliased,
 	aliasedExpected,
-	meltAlias,
-	meltAliasExpected,
 	ignoreComps,
 	ignoreCompsExpected,
 } from './index.svelte';
@@ -29,14 +27,6 @@ describe('Simple Builder - Identifiers', () => {
 		});
 
 		expect(processed?.code).toBe(aliasedExpected);
-	});
-
-	it('builder aliased as melt with AttributeShorthand', async () => {
-		const processed = await markup({
-			content: meltAlias,
-		});
-
-		expect(processed?.code).toBe(meltAliasExpected);
 	});
 
 	it('ignore component props', async () => {
