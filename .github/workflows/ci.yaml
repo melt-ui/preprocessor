@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - next
   pull_request:
 
 # cancel in-progress runs on new commits to same PR (gitub.event.number)
