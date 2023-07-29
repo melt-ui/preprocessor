@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.1.0-next.0
+
+### Minor Changes
+
+- 0b6b380: refactor: Replaces all instances of `use:melt` instead of `melt`
+
 ## 0.0.7
 
 ### Patch Changes
