@@ -1,0 +1,8 @@
+{
+	"mode": "pre",
+	"tag": "next",
+	"initialVersions": {
+		"@melt-ui/pp": "0.0.7"
+	},
+	"changesets": []
+}

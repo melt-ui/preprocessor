@@ -7,7 +7,7 @@ import {
 import { traverse } from './index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from '../types.js';
+import type { Config, Node } from '../types.js';
 
 type BlockArgs = {
 	blockNode: TemplateNode;
@@ -33,7 +33,7 @@ export function traverseBlock(args: BlockArgs) {
 		enter(node, parent) {
 			if (
 				parent?.type !== 'InlineComponent' && // we don't want to process component props
-				node.type === 'Attribute' &&
+				node.type === 'Action' &&
 				isAliasedAction(node.name, config.alias) &&
 				node.expression !== null // assigned to something
 			) {
@@ -88,12 +88,12 @@ function handleActionNode({
 	knownIdentifiers,
 	blockNode,
 }: HandleActionNodeArgs) {
-	const expression = actionNode.value[0].expression as TemplateNode;
+	const expression = actionNode.expression as Node;
 	const expressionIdentifiers = new Set<string>();
 	let inserted = false;
 
 	// any other expression type...
-	// i.e. melt={$builder({ arg1: '', arg2: '' })}
+	// i.e. use:melt={$builder({ arg1: '', arg2: '' })}
 	if (expression.type !== 'Identifier') {
 		const expressionContent = config.content.substring(expression.start, expression.end);
 		extractIdentifiers(expression).forEach((identifier) =>
