@@ -2,7 +2,7 @@ import { extractIdentifiers } from '../helpers.js';
 import { traverseBlock } from './Block.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from '../types.js';
+import type { Config, LeftoverAction } from '../types.js';
 
 type TraverseEachBlockArgs = {
 	eachBlockNode: TemplateNode;
@@ -13,7 +13,7 @@ export function traverseEachBlock({ eachBlockNode, config }: TraverseEachBlockAr
 
 	const eachBlockIdentifiers = new Set<string>();
 	const context = eachBlockNode.context; // {#each someIterable as CONTEXT}
-	const leftOverActions: TemplateNode[] = [];
+	const leftOverActions: LeftoverAction[] = [];
 
 	// get all the identifiers found in the of the each block declaration
 	extractIdentifiers(context).forEach((identifier) =>

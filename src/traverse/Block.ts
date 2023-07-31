@@ -7,12 +7,12 @@ import {
 import { traverse } from './index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config, Node } from '../types.js';
+import type { Config, LeftoverAction, Node } from '../types.js';
 
 type BlockArgs = {
 	blockNode: TemplateNode;
 	blockIdentifiers: Set<string>;
-	leftOverActions: TemplateNode[];
+	leftOverActions: LeftoverAction[];
 	config: Config;
 };
 
@@ -30,9 +30,8 @@ export function traverseBlock(args: BlockArgs) {
 	// walk the children to determine if the block's provided identifiers are
 	// being used in the melt action's expression
 	walk(blockNode.children, {
-		enter(node, parent) {
+		enter(node) {
 			if (
-				parent?.type !== 'InlineComponent' && // we don't want to process component props
 				node.type === 'Action' &&
 				isAliasedAction(node.name, config.alias) &&
 				node.expression !== null // assigned to something
@@ -73,7 +72,7 @@ type HandleActionNodeArgs = {
 	blockNode: TemplateNode;
 	knownIdentifiers: Set<string>;
 	actionNode: TemplateNode;
-	leftOverActions: TemplateNode[];
+	leftOverActions: LeftoverAction[];
 	config: Config;
 };
 
@@ -127,7 +126,7 @@ function handleActionNode({
 
 		// if no {@const} block was injected, add it to the list of untouched actions
 		if (inserted === false) {
-			leftOverActions.push(actionNode);
+			leftOverActions.push({ actionNode, directBlockNode: blockNode });
 		}
 	} else {
 		// if it's just an identifier, add it to the list of builders so that it can
