@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.1.0-next.1
+
+### Patch Changes
+
+- 6646560: fix: `{@const}` tags are now injected into the direct parent block of a qualified action node.
+
 ## 0.1.0-next.0
 
 ### Minor Changes
