@@ -63,12 +63,10 @@ export const controlEachExpected = `
 			action: () => {},
 		};
 	});
-
-$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 </script>
 
 {#each [1, 2, 3] as item}
-	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 {/each}
 `;
 
@@ -250,8 +248,8 @@ export const nestedEachUpperExpected = `
 </script>
 
 {#each [1, 2, 3] as item}
-	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}{#each [4, 5, 6] as item2}
-		<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
+	{#each [4, 5, 6] as item2}
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/each}
 {/each}
 `;
@@ -334,4 +332,58 @@ export const nestedEachBothExpected = `
 		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: item2 })}<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/each}
 {/each}
+`;
+
+export const thumbEach = `
+<script>
+	import { createSlider, melt } from '@melt-ui/svelte';
+
+	const {
+		elements: { root, range, thumb },
+		states: { value },
+	} = createSlider({
+		defaultValue: [20, 80],
+		max: 100,
+	});
+</script>
+
+<span use:melt={$root} class="relative flex h-[20px] w-[200px] items-center">
+	<span class="block h-[3px] w-full bg-black/40">
+		<span use:melt={$range} class="h-[3px] bg-white" />
+	</span>
+
+	{#each $value as _}
+		<span
+			use:melt={$thumb()}
+			class="block h-5 w-5 rounded-full bg-white focus:ring-4 focus:ring-black/40"
+		/>
+	{/each}
+</span>
+`;
+
+export const thumbEachExpected = `
+<script>
+	import { createSlider, melt } from '@melt-ui/svelte';
+
+	const {
+		elements: { root, range, thumb },
+		states: { value },
+	} = createSlider({
+		defaultValue: [20, 80],
+		max: 100,
+	});
+</script>
+
+<span {...$root} use:$root.action class="relative flex h-[20px] w-[200px] items-center">
+	<span class="block h-[3px] w-full bg-black/40">
+		<span {...$range} use:$range.action class="h-[3px] bg-white" />
+	</span>
+
+	{#each $value as _}
+		{@const __MELTUI_BUILDER_0__ = $thumb()}<span
+			{...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action
+			class="block h-5 w-5 rounded-full bg-white focus:ring-4 focus:ring-black/40"
+		/>
+	{/each}
+</span>
 `;

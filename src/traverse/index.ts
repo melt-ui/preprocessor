@@ -1,10 +1,10 @@
 import { traverseEachBlock } from './EachBlock.js';
 import { traverseAwaitBlock } from './AwaitBlock.js';
 import { traverseComponentBlock } from './ComponentBlock.js';
-import { isAliasedAction, walk } from '../helpers.js';
+import { getMeltBuilderName, isAliasedAction, walk } from '../helpers.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from '../types';
+import type { Config, LeftoverAction, Node } from '../types';
 
 type TraverseArgs = {
 	baseNode: TemplateNode;
@@ -14,13 +14,14 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 	const actions: TemplateNode[] = [];
 
 	walk(baseNode, {
-		enter(node, parent) {
+		enter(node) {
 			// if there's an each block that contains an expression,
 			// add a {@const identifier = expression}
 			if (node.type === 'EachBlock') {
 				const leftOverActions = traverseEachBlock({ eachBlockNode: node, config });
 
-				actions.push(...leftOverActions);
+				// inject the const into the the actions direct parent block
+				injectConst({ config, leftOverActions });
 				// don't need to traverse the rest of the Each Block
 				this.skip();
 			}
@@ -33,7 +34,7 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 			) {
 				const leftOverActions = traverseComponentBlock({ compBlockNode: node, config });
 
-				actions.push(...leftOverActions);
+				injectConst({ config, leftOverActions });
 				// don't need to traverse the rest of the Component Block
 				this.skip();
 			}
@@ -43,14 +44,13 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 				// check identifiers in the then and catch block, if present
 				const leftOverActions = traverseAwaitBlock({ awaitBlockNode: node, config });
 
-				actions.push(...leftOverActions);
+				injectConst({ config, leftOverActions });
 				// don't need to traverse the rest of the Await Block
 				this.skip();
 			}
 
 			// top level Actions
 			if (
-				parent?.type !== 'InlineComponent' && // we don't want to process component props (even though Actions can only be applied to DOM elements)
 				node.type === 'Action' &&
 				isAliasedAction(node.name, config.alias) &&
 				node.expression !== null // assigned to something
@@ -64,4 +64,35 @@ export function traverse({ baseNode, config }: TraverseArgs) {
 
 	// return all the leftover actions
 	return actions;
+}
+
+type InjectConstArgs = {
+	leftOverActions: LeftoverAction[];
+	config: Config;
+};
+/**
+ * Injects the `{@const}` tag into the direct parent block node of the action.
+ */
+function injectConst({ config, leftOverActions }: InjectConstArgs) {
+	for (const { actionNode, directBlockNode } of leftOverActions) {
+		const expression = actionNode.expression as Node;
+
+		const expressionContent = config.content.substring(expression.start, expression.end);
+
+		// make this into a {@const} block
+		const start = directBlockNode.children?.at(0)?.start;
+		const constIdentifier = getMeltBuilderName(config.builderCount++);
+		if (!start) throw Error('This is unreachable');
+
+		config.builders.push({
+			identifierName: constIdentifier,
+			startPos: actionNode.start,
+			endPos: actionNode.end,
+		});
+
+		config.markup.prependRight(
+			start,
+			`{@const ${constIdentifier} = ${expressionContent}}`
+		);
+	}
 }

@@ -99,11 +99,9 @@ export const controlExpected = `
 			action: () => {},
 		};
 	});
-
-$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 </script>
 
-<Component let:item>
+<Component let:item>{@const __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' })}
 	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 </Component>
 `;
@@ -265,8 +263,8 @@ export const nestedUpperExpected = `
 	});
 </script>
 
-<Component let:item1>{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: '' })}
-	<Component let:item2>
+<Component let:item1>
+	<Component let:item2>{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: '' })}
 		<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	</Component>
 </Component>

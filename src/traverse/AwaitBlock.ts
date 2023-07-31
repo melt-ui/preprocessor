@@ -2,7 +2,7 @@ import { extractIdentifiers } from '../helpers.js';
 import { traverseBlock } from './Block.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from '../types.js';
+import type { Config, LeftoverAction } from '../types.js';
 
 type TraverseAwaitBlockArgs = {
 	awaitBlockNode: TemplateNode;
@@ -14,7 +14,7 @@ export function traverseAwaitBlock({ awaitBlockNode, config }: TraverseAwaitBloc
 	const awaitBlockIdentifiers = new Set<string>();
 	const value = awaitBlockNode.value; // {:then VALUE} or {#await promise then VALUE}
 	const error = awaitBlockNode.error; // {:catch ERROR}
-	const leftOverActions: TemplateNode[] = [];
+	const leftOverActions: LeftoverAction[] = [];
 
 	// get all the identifiers found in the await block value
 	extractIdentifiers(value).forEach((identifier) =>
