@@ -1,5 +1,15 @@
 # @melt-ui/pp
 
+## 0.1.0
+
+### Minor Changes
+
+- 0b6b380: refactor: Replaces all instances of `use:melt` instead of `melt`
+
+### Patch Changes
+
+- 6646560: fix: `{@const}` tags are now injected into the direct parent block of a qualified action node.
+
 ## 0.1.0-next.1
 
 ### Patch Changes
