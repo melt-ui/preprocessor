@@ -1,6 +1,7 @@
 export const simple = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -8,12 +9,13 @@ export const simple = `
 	});
 </script>
 
-<div melt={$builder} />
+<div use:melt={$builder} />
 `;
 
 export const simpleExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -27,6 +29,7 @@ export const simpleExpected = `
 export const aliased = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -44,13 +47,14 @@ export const aliased = `
 	const expressionAlias = $expressionBuilder({ arg1: 1, arg2: '' });
 </script>
 
-<div melt={alias} />
-<div melt={expressionAlias} />
+<div use:melt={alias} />
+<div use:melt={expressionAlias} />
 `;
 
 export const aliasedExpected = `
 <script>
 	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
 
 	const builder = writable({
 		role: 'Mock',
@@ -70,90 +74,4 @@ export const aliasedExpected = `
 
 <div {...alias} use:alias.action />
 <div {...expressionAlias} use:expressionAlias.action />
-`;
-
-export const ignoreComps = `
-<script>
-	import { writable } from 'svelte/store';
-	import Comp from "./Comp.svelte";
-
-	const builder = writable({
-		role: 'Mock',
-		action: () => {},
-	});
-</script>
-
-<div melt={$builder} />
-
-<Comp melt={$builder} />
-<Comp melt={builder} />
-
-<Comp melt={$builder}>
-	<div melt={$builder} />
-</Comp>
-`;
-
-export const ignoreCompsExpected = `
-<script>
-	import { writable } from 'svelte/store';
-	import Comp from "./Comp.svelte";
-
-	const builder = writable({
-		role: 'Mock',
-		action: () => {},
-	});
-</script>
-
-<div {...$builder} use:$builder.action />
-
-<Comp melt={$builder} />
-<Comp melt={builder} />
-
-<Comp melt={$builder}>
-	<div {...$builder} use:$builder.action />
-</Comp>
-`;
-
-export const meltAlias = `
-<script>
-	import { writable } from 'svelte/store';
-	import Comp from "./Comp.svelte";
-
-	const builder = writable({
-		role: 'Mock',
-		action: () => {},
-	});
-
-	$: melt = $builder;
-</script>
-
-<div {melt} />
-
-<Comp {melt} />
-
-<Comp {melt}>
-	<div {melt} />
-</Comp>
-`;
-
-export const meltAliasExpected = `
-<script>
-	import { writable } from 'svelte/store';
-	import Comp from "./Comp.svelte";
-
-	const builder = writable({
-		role: 'Mock',
-		action: () => {},
-	});
-
-	$: melt = $builder;
-</script>
-
-<div {...melt} use:melt.action />
-
-<Comp {melt} />
-
-<Comp {melt}>
-	<div {...melt} use:melt.action />
-</Comp>
 `;

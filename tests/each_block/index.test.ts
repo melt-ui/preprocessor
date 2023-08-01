@@ -19,6 +19,8 @@ import {
 	nestedEachLowerExpected,
 	scopedEach,
 	scopedEachExpected,
+	thumbEach,
+	thumbEachExpected,
 } from './index.svelte';
 
 describe('Each Block', () => {
@@ -95,5 +97,13 @@ describe('Each Block', () => {
 		});
 
 		expect(processed?.code).toBe(nestedEachBothExpected);
+	});
+
+	it('each block with no reference to the context', async () => {
+		const processed = await markup({
+			content: thumbEach,
+		});
+
+		expect(processed?.code).toBe(thumbEachExpected);
 	});
 });
