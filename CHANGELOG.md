@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.1.1
+
+### Patch Changes
+
+- 8acd92f: fix: Clarify the use of the `alias` config option
+
 ## 0.1.0
 
 ### Minor Changes
