@@ -8,7 +8,21 @@ import type { Config, Node } from './types.js';
 
 export type PreprocessOptions = {
 	/**
-	 * Name of the `melt` action can be aliased.
+	 * For aliasing the name of the `melt` action.
+	 *
+	 * When configured, the PP will __only__ process action names
+	 * that are passed to this field.
+	 *
+	 * @example
+	 * ```ts
+	 * // ONLY process actions named `_melt`
+	 * preprocessMeltUI({ alias: ["_melt"] })
+	 *
+	 * // process actions named `_melt` or `melt`
+	 * preprocessMeltUI({ alias: ["melt", "_melt"] })
+	 *
+	 * ```
+	 *
 	 * @default "melt"
 	 */
 	alias?: string | string[];
