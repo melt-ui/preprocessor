@@ -95,7 +95,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 				} else {
 					// otherwise, we'll take the expression and hoist it into the script node
 					identifier = getMeltBuilderName(config.builderCount++);
-					identifiersToInsert += `$: ${identifier} = ${builder.expression.contents};\n`;
+					identifiersToInsert += `\t$: ${identifier} = ${builder.expression.contents};\n`;
 				}
 
 				const attributes = `{...${identifier}} use:${identifier}.action`;
