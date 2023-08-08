@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.1.2
+
+### Patch Changes
+
+- 3c4b53a: chore: Simplified internal logic for injecting `{@const}` tags
+
 ## 0.1.1
 
 ### Patch Changes
