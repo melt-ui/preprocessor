@@ -74,8 +74,21 @@ function handleActionNode({ config, actionNode, blockNode }: HandleActionNodeArg
 	if (expression.type !== 'Identifier') {
 		const expressionContent = config.content.substring(expression.start, expression.end);
 
-		// inject the {@const} tag
-		const start = blockNode.children?.at(0)?.start;
+		// extract the indent of the block such that the indentation of the injected
+		// {@const} tag is in line with the rest of the block
+		const blockContent = config.content.substring(blockNode.start, blockNode.end);
+		const blockLines = blockContent.split('\n');
+		const indent = blockLines.at(1)?.match(/\s*/);
+
+		// a weird quirk with Await and Component blocks where the first child
+		// is a Text node, so we'll ignore them and take the 2nd child instead
+		let firstChild = blockNode.children?.at(0);
+		if (firstChild?.type === 'Text') {
+			firstChild = blockNode.children?.at(1);
+		}
+
+		// convert this into a {@const} block
+		const start = firstChild?.start;
 		const constIdentifier = getMeltBuilderName(config.builderCount++);
 		if (!start) throw Error('This is unreachable');
 
@@ -87,7 +100,7 @@ function handleActionNode({ config, actionNode, blockNode }: HandleActionNodeArg
 
 		config.markup.prependRight(
 			start,
-			`{@const ${constIdentifier} = ${expressionContent}}`
+			`{@const ${constIdentifier} = ${expressionContent}}\n${indent}`
 		);
 	} else {
 		// if it's just an identifier, add it to the list of builders so that it can
