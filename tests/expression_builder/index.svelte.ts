@@ -26,7 +26,7 @@ export const callExpressionExpected = `
 		};
 	});
 
-$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
+	$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
 </script>
 
 <div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
@@ -60,7 +60,7 @@ export const objExpressionExpected = `
 		};
 	});
 
-$: __MELTUI_BUILDER_0__ = { ...$builder({ arg1: 1, arg2: '' }) };
+	$: __MELTUI_BUILDER_0__ = { ...$builder({ arg1: 1, arg2: '' }) };
 </script>
 
 <div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
@@ -96,9 +96,9 @@ export const multiExpressionsExpected = `
 		};
 	});
 
-$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
-$: __MELTUI_BUILDER_1__ = $builder({ arg1: 1, arg2: '' });
-$: __MELTUI_BUILDER_2__ = $builder({ arg1: 1, arg2: '' });
+	$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
+	$: __MELTUI_BUILDER_1__ = $builder({ arg1: 1, arg2: '' });
+	$: __MELTUI_BUILDER_2__ = $builder({ arg1: 1, arg2: '' });
 </script>
 
 <div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />

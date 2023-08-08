@@ -35,9 +35,11 @@ export const basicAwaitExpected = `
 
 {#await promise}
 	<div />
-{:then item}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
+{:then item}
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
 	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
-{:catch error}{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: '' })}
+{:catch error}
+	{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: '' })}
 	<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
 {/await}
 `;
@@ -75,9 +77,11 @@ export const basicShorthandAwaitExpected = `
 	});
 </script>
 
-{#await promise then item}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
+{#await promise then item}
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
 	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
-{:catch error}{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: '' })}
+{:catch error}
+	{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: '' })}
 	<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
 {/await}
 `;
@@ -119,9 +123,11 @@ export const controlAwaitExpected = `
 
 {#await promise}
 	<div />
-{:then item}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' })}
+{:then item}
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' })}
 	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
-{:catch error}{@const __MELTUI_BUILDER_1__ = $builder({ arg1: 1, arg2: '' })}
+{:catch error}
+	{@const __MELTUI_BUILDER_1__ = $builder({ arg1: 1, arg2: '' })}
 	<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
 {/await}
 `;
@@ -203,9 +209,11 @@ export const duplicateIdentifierAwaitExpected = `
 
 {#await promise}
 	<div />
-{:then item}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: item })}
+{:then item}
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: item })}
 	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
-{:catch error}{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: error })}
+{:catch error}
+	{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: error })}
 	<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
 {/await}
 `;
@@ -247,9 +255,11 @@ export const destructuredAwaitExpected = `
 
 {#await promise}
 	<div />
-{:then {item1, item2}}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: item2 })}
+{:then {item1, item2}}
+	{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: item2 })}
 	<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
-{:catch {error1, error2}}{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error1, arg2: error2 })}
+{:catch {error1, error2}}
+	{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error1, arg2: error2 })}
 	<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
 {/await}
 `;
@@ -297,18 +307,24 @@ export const scopedAwaitExpected = `
 	});
 </script>
 
-{#await promise then item}{@const __MELTUI_BUILDER_2__ = $builder({ arg1: item, arg2: '' })}
+{#await promise then item}
+	{@const __MELTUI_BUILDER_2__ = $builder({ arg1: item, arg2: '' })}
 	<div {...__MELTUI_BUILDER_2__} use:__MELTUI_BUILDER_2__.action />
-	{#await promise then item}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
+	{#await promise then item}
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
 		<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
-	{:catch error}{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: '' })}
+	{:catch error}
+		{@const __MELTUI_BUILDER_1__ = $builder({ arg1: error, arg2: '' })}
 		<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
 	{/await}
-{:catch error}{@const __MELTUI_BUILDER_5__ = $builder({ arg1: error, arg2: '' })}
+{:catch error}
+	{@const __MELTUI_BUILDER_5__ = $builder({ arg1: error, arg2: '' })}
 	<div {...__MELTUI_BUILDER_5__} use:__MELTUI_BUILDER_5__.action />
-	{#await promise2 then item}{@const __MELTUI_BUILDER_3__ = $builder({ arg1: item, arg2: '' })}
+	{#await promise2 then item}
+		{@const __MELTUI_BUILDER_3__ = $builder({ arg1: item, arg2: '' })}
 		<div {...__MELTUI_BUILDER_3__} use:__MELTUI_BUILDER_3__.action />
-	{:catch error}{@const __MELTUI_BUILDER_4__ = $builder({ arg1: error, arg2: '' })}
+	{:catch error}
+		{@const __MELTUI_BUILDER_4__ = $builder({ arg1: error, arg2: '' })}
 		<div {...__MELTUI_BUILDER_4__} use:__MELTUI_BUILDER_4__.action />
 	{/await}
 {/await}
@@ -356,15 +372,19 @@ export const nestedAwaitUpperExpected = `
 </script>
 
 {#await promise then item}
-	{#await promise then item2}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
+	{#await promise then item2}
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item, arg2: '' })}
 		<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
-	{:catch error}{@const __MELTUI_BUILDER_1__ = $builder({ arg1: item, arg2: '' })}
+	{:catch error}
+		{@const __MELTUI_BUILDER_1__ = $builder({ arg1: item, arg2: '' })}
 		<div {...__MELTUI_BUILDER_1__} use:__MELTUI_BUILDER_1__.action />
 	{/await}
 {:catch error1}
-	{#await promise then item}{@const __MELTUI_BUILDER_2__ = $builder({ arg1: error1, arg2: '' })}
+	{#await promise then item}
+		{@const __MELTUI_BUILDER_2__ = $builder({ arg1: error1, arg2: '' })}
 		<div {...__MELTUI_BUILDER_2__} use:__MELTUI_BUILDER_2__.action />
-	{:catch error2}{@const __MELTUI_BUILDER_3__ = $builder({ arg1: error1, arg2: '' })}
+	{:catch error2}
+		{@const __MELTUI_BUILDER_3__ = $builder({ arg1: error1, arg2: '' })}
 		<div {...__MELTUI_BUILDER_3__} use:__MELTUI_BUILDER_3__.action />
 	{/await}
 {/await}
@@ -404,7 +424,8 @@ export const nestedAwaitLowerExpected = `
 </script>
 
 {#await promise then item}
-	{#await promise then item2}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item2, arg2: '' })}
+	{#await promise then item2}
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item2, arg2: '' })}
 		<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/await}
 {/await}
@@ -444,7 +465,8 @@ export const nestedAwaitBothExpected = `
 </script>
 
 {#await promise then item}
-	{#await promise then item2}{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: item2 })}
+	{#await promise then item2}
+		{@const __MELTUI_BUILDER_0__ = $builder({ arg1: item1, arg2: item2 })}
 		<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 	{/await}
 {/await}
