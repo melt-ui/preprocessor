@@ -1,6 +1,5 @@
 import type { Node as ESTreeNode } from 'estree';
 import type MagicString from 'magic-string';
-import { TemplateNode } from 'svelte/types/compiler/interfaces';
 
 export type Builder = BuilderIdentifier | BuilderExpression;
 
@@ -33,5 +32,3 @@ export type Config = {
 	content: string;
 	builderCount: number;
 };
-
-export type LeftoverAction = { actionNode: TemplateNode; directBlockNode: TemplateNode };

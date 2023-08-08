@@ -44,27 +44,3 @@ export function walk<AST extends TemplateNode | Array<Node>, Node extends Templa
 	// @ts-expect-error do this once so i don't have to keep adding these ignores
 	return svelte_walk(ast, args);
 }
-
-/**
- * Extracts all the identifiers found in the expression.
- */
-export function extractIdentifiers<Expression extends TemplateNode>(
-	expression: Expression
-) {
-	const identifiers = new Set<string>();
-	// get all the identifiers found in the expression
-	walk(expression, {
-		enter(node, parent) {
-			if (node.type === 'Identifier') {
-				// ignore property keys
-				if (parent?.type === 'Property' && parent.key === node) {
-					this.skip();
-					return;
-				}
-				identifiers.add(node.name);
-			}
-		},
-	});
-
-	return identifiers;
-}
