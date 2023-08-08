@@ -34,9 +34,7 @@ export function traverseComponentBlock({ compBlockNode, config }: TraverseEachBl
 
 	// determine if those identifiers are scoped to this block
 	traverseBlock({
-		blockIdentifiers: compBlockIdentifiers,
 		blockNode: compBlockNode,
-		leftOverActions,
 		config,
 	});
 

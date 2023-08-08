@@ -1,18 +1,11 @@
-import {
-	extractIdentifiers,
-	getMeltBuilderName,
-	isAliasedAction,
-	walk,
-} from '../helpers';
+import { getMeltBuilderName, isAliasedAction, walk } from '../helpers';
 import { traverse } from './index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config, LeftoverAction, Node } from '../types.js';
+import type { Config, Node } from '../types.js';
 
 type BlockArgs = {
 	blockNode: TemplateNode;
-	blockIdentifiers: Set<string>;
-	leftOverActions: LeftoverAction[];
 	config: Config;
 };
 
@@ -23,8 +16,7 @@ type BlockArgs = {
  * If there are, we'll inject an `{@const}` block into the provided block
  * with it's corresponding identifiers.
  */
-export function traverseBlock(args: BlockArgs) {
-	const { blockNode, blockIdentifiers, config, leftOverActions } = args;
+export function traverseBlock({ blockNode, config }: BlockArgs) {
 	if (blockNode.children === undefined) return;
 
 	// walk the children to determine if the block's provided identifiers are
@@ -38,10 +30,8 @@ export function traverseBlock(args: BlockArgs) {
 			) {
 				handleActionNode({
 					actionNode: node,
-					knownIdentifiers: blockIdentifiers,
 					blockNode,
 					config,
-					leftOverActions,
 				});
 
 				// we don't have to walk the Action's children
@@ -54,11 +44,9 @@ export function traverseBlock(args: BlockArgs) {
 
 			for (const actionNode of returnedActions) {
 				handleActionNode({
-					knownIdentifiers: blockIdentifiers,
 					actionNode,
 					blockNode,
 					config,
-					leftOverActions,
 				});
 			}
 
@@ -70,67 +58,41 @@ export function traverseBlock(args: BlockArgs) {
 
 type HandleActionNodeArgs = {
 	blockNode: TemplateNode;
-	knownIdentifiers: Set<string>;
 	actionNode: TemplateNode;
-	leftOverActions: LeftoverAction[];
 	config: Config;
 };
 
 /**
- * Injects the `{@const}` block as a child of the provided block node. If there's nothing
- * to inject, it will add the provided node to the list of leftover actions.
+ * Injects the `{@const}` tag as a child of the provided block
+ * node if the expression is anything but an `Identifier`.
  */
-function handleActionNode({
-	config,
-	actionNode,
-	leftOverActions,
-	knownIdentifiers,
-	blockNode,
-}: HandleActionNodeArgs) {
+function handleActionNode({ config, actionNode, blockNode }: HandleActionNodeArgs) {
 	const expression = actionNode.expression as Node;
-	const expressionIdentifiers = new Set<string>();
-	let inserted = false;
 
 	// any other expression type...
 	// i.e. use:melt={$builder({ arg1: '', arg2: '' })}
 	if (expression.type !== 'Identifier') {
 		const expressionContent = config.content.substring(expression.start, expression.end);
-		extractIdentifiers(expression).forEach((identifier) =>
-			expressionIdentifiers.add(identifier)
+
+		// inject the {@const} tag
+		const start = blockNode.children?.at(0)?.start;
+		const constIdentifier = getMeltBuilderName(config.builderCount++);
+		if (!start) throw Error('This is unreachable');
+
+		config.builders.push({
+			identifierName: constIdentifier,
+			startPos: actionNode.start,
+			endPos: actionNode.end,
+		});
+
+		config.markup.prependRight(
+			start,
+			`{@const ${constIdentifier} = ${expressionContent}}`
 		);
-
-		// const
-		for (const identifier of expressionIdentifiers) {
-			if (!knownIdentifiers.has(identifier)) {
-				continue;
-			}
-
-			// make this into a {@const} block
-			const start = blockNode.children?.at(0)?.start;
-			const constIdentifier = getMeltBuilderName(config.builderCount++);
-			if (!start) throw Error('This is unreachable');
-
-			config.builders.push({
-				identifierName: constIdentifier,
-				startPos: actionNode.start,
-				endPos: actionNode.end,
-			});
-
-			config.markup.prependRight(
-				start,
-				`{@const ${constIdentifier} = ${expressionContent}}`
-			);
-			inserted = true;
-			break;
-		}
-
-		// if no {@const} block was injected, add it to the list of untouched actions
-		if (inserted === false) {
-			leftOverActions.push({ actionNode, directBlockNode: blockNode });
-		}
 	} else {
 		// if it's just an identifier, add it to the list of builders so that it can
 		// later be transformed into the correct syntax
+		// i.e. use:melt={$builder}
 		config.builders.push({
 			identifierName: expression.name,
 			startPos: actionNode.start,

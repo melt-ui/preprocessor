@@ -25,18 +25,17 @@ export function traverseAwaitBlock({ awaitBlockNode, config }: TraverseAwaitBloc
 		awaitBlockIdentifiers.add(identifier)
 	);
 
-	// determine if those identifiers are being used in the melt action's expression
+	/* determine if those identifiers are being used in the melt action's expression */
+
+	// then block
 	traverseBlock({
-		blockIdentifiers: awaitBlockIdentifiers,
 		blockNode: awaitBlockNode.then,
-		leftOverActions,
 		config,
 	});
 
+	// catch block
 	traverseBlock({
-		blockIdentifiers: awaitBlockIdentifiers,
 		blockNode: awaitBlockNode.catch,
-		leftOverActions,
 		config,
 	});
 

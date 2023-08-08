@@ -22,9 +22,7 @@ export function traverseEachBlock({ eachBlockNode, config }: TraverseEachBlockAr
 
 	// determine if those identifiers are being used in the melt action's expression
 	traverseBlock({
-		blockIdentifiers: eachBlockIdentifiers,
 		blockNode: eachBlockNode,
-		leftOverActions,
 		config,
 	});
 
