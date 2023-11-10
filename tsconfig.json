@@ -10,8 +10,8 @@
 		"strict": true,
 		"lib": ["ES2022"],
 		"target": "ES2022",
-		"module": "NodeNext",
-		"moduleResolution": "nodenext",
+		"module": "ES2022",
+		"moduleResolution": "bundler",
 		"paths": {
 			"$pkg/*": ["./src/*"]
 		}
