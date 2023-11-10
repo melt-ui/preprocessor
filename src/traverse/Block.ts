@@ -1,4 +1,4 @@
-import { getMeltBuilderName, isAliasedAction, walk } from '../helpers';
+import { getMeltBuilderName, isAliasedAction, walk } from '../helpers.js';
 import { traverse } from './index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';

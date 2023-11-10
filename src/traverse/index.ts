@@ -4,7 +4,7 @@ import { traverseComponentBlock } from './ComponentBlock.js';
 import { isAliasedAction, walk } from '../helpers.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Config } from '../types';
+import type { Config } from '../types.js';
 
 type TraverseArgs = {
 	baseNode: TemplateNode;
