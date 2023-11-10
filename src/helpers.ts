@@ -1,4 +1,4 @@
-import { walk as svelte_walk } from 'svelte/compiler';
+import { walk as estree_walk } from 'estree-walker';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Node } from './types.js';
@@ -15,9 +15,9 @@ export function getMeltBuilderName(i: number) {
 }
 
 // excuse the mess...
-type Enter = Parameters<typeof svelte_walk>[1]['enter'];
+type Enter = Parameters<typeof estree_walk>[1]['enter'];
 type EnterParams = Parameters<NonNullable<Enter>>;
-type Leave = Parameters<typeof svelte_walk>[1]['leave'];
+type Leave = Parameters<typeof estree_walk>[1]['leave'];
 type WalkerContext = {
 	skip: () => void;
 	remove: () => void;
@@ -42,5 +42,5 @@ export function walk<AST extends TemplateNode | Array<Node>, Node extends Templa
 	args: WalkerArgs<Node>
 ) {
 	// @ts-expect-error do this once so i don't have to keep adding these ignores
-	return svelte_walk(ast, args);
+	return estree_walk(ast, args);
 }
