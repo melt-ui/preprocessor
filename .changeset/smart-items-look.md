@@ -2,4 +2,4 @@
 "@melt-ui/pp": patch
 ---
 
-Refactor: use estree-walker instead of svelte walk
+chore: Use `estree-walker` instead of Svelte's `walk`
