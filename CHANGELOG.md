@@ -1,5 +1,12 @@
 # @melt-ui/pp
 
+## 0.1.3
+
+### Patch Changes
+
+- e73cc40: chore: Use `estree-walker` instead of Svelte's `walk`
+- eb41557: chore: Added Svelte 5 as a supported peer dependency
+
 ## 0.1.2
 
 ### Patch Changes
