@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.1.4
+
+### Patch Changes
+
+- 9bbd746: fix: Corrected `module` and `types` entry points
+
 ## 0.1.3
 
 ### Patch Changes
