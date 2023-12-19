@@ -24,11 +24,11 @@ import { PreprocessorGroup, Processed } from 'svelte/types/compiler/preprocess';
 export function sequence(preprocessors: PreprocessorGroup[]): PreprocessorGroup {
 	return {
 		async markup({ content, filename }): Promise<Processed> {
-			const dependencies = [];
 			let code = content;
 			let map: Processed['map'];
 			let attributes: Processed['attributes'];
 			let toString: Processed['toString'];
+			const dependencies: Processed['dependencies'] = [];
 
 			for (const pp of preprocessors) {
 				const processed = await preprocess(code, pp, { filename });
@@ -46,6 +46,7 @@ export function sequence(preprocessors: PreprocessorGroup[]): PreprocessorGroup 
 				dependencies,
 				map,
 				attributes,
+				toString,
 			};
 		},
 	};
