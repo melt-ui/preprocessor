@@ -1,3 +1,5 @@
+// Originally sourced and modified from https://github.com/pchynoweth/svelte-sequential-preprocessor
+
 import { preprocess } from 'svelte/compiler';
 import { PreprocessorGroup, Processed } from 'svelte/types/compiler/preprocess';
 
