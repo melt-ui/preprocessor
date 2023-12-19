@@ -6,6 +6,8 @@ import { traverse } from './traverse/index.js';
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Config, Node } from './types.js';
 
+export * from './sequence.js';
+
 export type PreprocessOptions = {
 	/**
 	 * For aliasing the name of the `melt` action.
@@ -119,7 +121,6 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			return {
 				code: config.markup.toString(),
-				map: config.markup.generateMap(),
 			};
 		},
 	};
