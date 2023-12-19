@@ -1,5 +1,15 @@
 # @melt-ui/pp
 
+## 0.2.0
+
+### Minor Changes
+
+- 978fd50: feat: Added a built-in sequential preprocessor
+
+### Patch Changes
+
+- 978fd50: fix: Fixed source maps
+
 ## 0.1.4
 
 ### Patch Changes
