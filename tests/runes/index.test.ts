@@ -42,9 +42,9 @@ describe.skipIf(!isSvelte5)('Runes mode', () => {
 
 	test('runes mode disabled with <svelte:options runes={false} />', async () => {
 		const processed = await markup({
-			content: t.svelteOptionsImplicit,
+			content: t.svelteOptionsExplicitDisabled,
 		});
 
-		expect(processed?.code).toBe(t.svelteOptionsImplicitExpected);
+		expect(processed?.code).toBe(t.svelteOptionsExplicitDisabledExpected);
 	});
 });
