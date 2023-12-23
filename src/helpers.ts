@@ -1,6 +1,6 @@
 import { walk as estree_walk } from 'estree-walker';
 
-import type { Ast, Attribute, TemplateNode } from 'svelte/types/compiler/interfaces';
+import type { Ast, TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Node } from './types.js';
 import type { CallExpression } from 'estree';
 
@@ -32,10 +32,9 @@ const RUNES = [
 export function isRuneMode(ast: Ast): boolean {
 	// check if the component has `<svelte:options runes />`
 	for (const element of ast.html.children ?? []) {
-		if (element.type !== 'Options') continue;
-		if (element.name !== 'svelte:options') continue;
+		if (element.type !== 'Options' || element.name !== 'svelte:options') continue;
 
-		const attributes: Attribute[] = element.attributes;
+		const attributes = element.attributes;
 		for (const attr of attributes) {
 			if (attr.name !== 'runes') continue;
 			// `<svelte:options runes />`
