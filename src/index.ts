@@ -1,6 +1,6 @@
 import MagicString from 'magic-string';
 import { parse, type PreprocessorGroup } from 'svelte/compiler';
-import { getMeltBuilderName, walk } from './helpers.js';
+import { getMeltBuilderName, isRuneMode, walk } from './helpers.js';
 import { traverse } from './traverse/index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
@@ -66,6 +66,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			let scriptContentNode: { start: number; end: number } | undefined;
 			const ast = parse(content, { css: false, filename });
+			const runesMode = isRuneMode(ast);
 
 			// Grab the Script node so we can inject any hoisted expressions later
 			if (ast.instance) {
@@ -97,7 +98,11 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 				} else {
 					// otherwise, we'll take the expression and hoist it into the script node
 					identifier = getMeltBuilderName(config.builderCount++);
-					identifiersToInsert += `\t$: ${identifier} = ${builder.expression.contents};\n`;
+					if (runesMode) {
+						identifiersToInsert += `\tlet ${identifier} = $derived(${builder.expression.contents});\n`;
+					} else {
+						identifiersToInsert += `\t$: ${identifier} = ${builder.expression.contents};\n`;
+					}
 				}
 
 				const attributes = `{...${identifier}} use:${identifier}.action`;
