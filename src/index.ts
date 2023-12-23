@@ -53,6 +53,7 @@ export type PreprocessOptions = {
  * ```
  */
 export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup {
+	const isSvelte5 = VERSION.startsWith('5');
 	return {
 		name: 'MeltUI Preprocess',
 		markup: async ({ content, filename }) => {
@@ -66,7 +67,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			let scriptContentNode: { start: number; end: number } | undefined;
 			const ast = parse(content, { css: false, filename });
-			const runesMode = VERSION.startsWith('5') && isRuneMode(ast);
+			const runesMode = isSvelte5 && isRuneMode(ast);
 
 			// Grab the Script node so we can inject any hoisted expressions later
 			if (ast.instance) {

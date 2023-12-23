@@ -28,7 +28,6 @@ const RUNES = [
  * 	1. If `<svelte:options runes={true} />` is set
  * 	2. If `svelte-config.compilerOptions.runes` === `true`
  * 	3. If a rune is present in the component (`$state`, `$derived`, `$effect`, etc.)
- *
  */
 export function isRuneMode(ast: Ast & { options?: { runes?: boolean } | null }): boolean {
 	// The `options` field is only present at the AST root in Svelte 5
