@@ -1,6 +1,6 @@
 import { walk as estree_walk } from 'estree-walker';
 
-import type { Ast, TemplateNode } from 'svelte/types/compiler/interfaces';
+import type { Ast, Attribute, TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Node } from './types.js';
 import type { CallExpression } from 'estree';
 
@@ -29,11 +29,24 @@ const RUNES = [
  * 	2. If `svelte-config.compilerOptions.runes` === `true`
  * 	3. If a rune is present in the component (`$state`, `$derived`, `$effect`, etc.)
  */
-export function isRuneMode(ast: Ast & { options?: { runes?: boolean } | null }): boolean {
-	// The `options` field is only present at the AST root in Svelte 5
-	// `<svelte:options runes />`
-	if (ast.options?.runes !== undefined) {
-		return ast.options.runes;
+export function isRuneMode(ast: Ast): boolean {
+	// check if the component has `<svelte:options runes />`
+	for (const element of ast.html.children ?? []) {
+		if (element.type !== 'Options') continue;
+		if (element.name !== 'svelte:options') continue;
+
+		const attributes: Attribute[] = element.attributes;
+		for (const attr of attributes) {
+			if (attr.name !== 'runes') continue;
+			// `<svelte:options runes />`
+			if (typeof attr.value === 'boolean') {
+				return attr.value;
+			}
+			// `<svelte:options runes={false} />` or `<svelte:options runes={true} />`
+			if (typeof attr.value[0].expression.value === 'boolean') {
+				return attr.value[0].expression.value;
+			}
+		}
 	}
 
 	// `svelte-config.compilerOptions.runes`
