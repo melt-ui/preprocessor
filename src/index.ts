@@ -1,5 +1,5 @@
 import MagicString from 'magic-string';
-import { parse, type PreprocessorGroup } from 'svelte/compiler';
+import { parse, type PreprocessorGroup, VERSION } from 'svelte/compiler';
 import { getMeltBuilderName, isRuneMode, walk } from './helpers.js';
 import { traverse } from './traverse/index.js';
 
@@ -66,7 +66,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			let scriptContentNode: { start: number; end: number } | undefined;
 			const ast = parse(content, { css: false, filename });
-			const runesMode = isRuneMode(ast);
+			const runesMode = VERSION.startsWith('5') && isRuneMode(ast);
 
 			// Grab the Script node so we can inject any hoisted expressions later
 			if (ast.instance) {
