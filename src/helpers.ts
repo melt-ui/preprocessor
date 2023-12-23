@@ -1,13 +1,90 @@
 import { walk as estree_walk } from 'estree-walker';
 
-import type { TemplateNode } from 'svelte/types/compiler/interfaces';
+import type { Ast, TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Node } from './types.js';
+import type { CallExpression } from 'estree';
 
 export function isAliasedAction(name: string, alias: string | string[]): boolean {
 	if (typeof alias === 'string') {
 		return name === alias;
 	}
 	return alias.includes(name);
+}
+
+const RUNES = [
+	'$derived',
+	'$effect',
+	'$effect.active',
+	'$effect.pre',
+	'$effect.root',
+	'$inspect',
+	'$inspect.with',
+	'$props',
+	'$state',
+];
+
+/**
+ * There are 3 ways to determine if a component is in 'runes mode':
+ * 	1. If `<svelte:options runes={true} />` is set
+ * 	2. If `svelte-config.compilerOptions.runes` === `true`
+ * 	3. If a rune is present in the component (`$state`, `$derived`, `$effect`, etc.)
+ *
+ */
+export function isRuneMode(ast: Ast & { options?: { runes?: boolean } | null }): boolean {
+	// The `options` field is only present at the AST root in Svelte 5
+	// `<svelte:options runes />`
+	if (ast.options?.runes !== undefined) {
+		return ast.options.runes;
+	}
+
+	// `svelte-config.compilerOptions.runes`
+	// TODO: not sure how to do this yet
+
+	// a rune is present in the component
+	let hasRunes = false;
+	if (ast.module) {
+		hasRunes = containsRunes(ast.module);
+	}
+
+	if (ast.instance) {
+		hasRunes = hasRunes || containsRunes(ast.instance);
+	}
+
+	return hasRunes;
+}
+type Script = NonNullable<Ast['instance']>;
+function containsRunes(script: Script): boolean {
+	let containsRunes = false;
+
+	walk(script, {
+		enter(node) {
+			// already found a rune, don't need to check the rest
+			if (containsRunes) {
+				this.skip();
+				return;
+			}
+
+			if (node.type !== 'CallExpression') return;
+			const callExpression = node as unknown as CallExpression;
+
+			// $inspect(item)
+			const callee = callExpression.callee;
+			if (callee.type === 'Identifier') {
+				containsRunes = RUNES.some((rune) => rune === callee.name);
+			}
+			// $inspect.with(item)
+			if (callee.type === 'MemberExpression') {
+				if (callee.object.type !== 'Identifier') return;
+				if (callee.property.type !== 'Literal') return;
+				if (typeof callee.property.value !== 'string') return;
+
+				const name = callee.object.name + '.' + callee.property.value;
+				containsRunes = RUNES.some((rune) => rune === name);
+			}
+		},
+	});
+
+	return containsRunes;
 }
 
 export function getMeltBuilderName(i: number) {
