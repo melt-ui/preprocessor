@@ -73,11 +73,11 @@ function containsRunes(script: Script): boolean {
 			}
 			// $inspect.with(item)
 			if (callee.type === 'MemberExpression') {
+				if (callee.computed) return;
 				if (callee.object.type !== 'Identifier') return;
-				if (callee.property.type !== 'Literal') return;
-				if (typeof callee.property.value !== 'string') return;
+				if (callee.property.type !== 'Identifier') return;
 
-				const name = callee.object.name + '.' + callee.property.value;
+				const name = callee.object.name + '.' + callee.property.name;
 				containsRunes = RUNES.some((rune) => rune === name);
 			}
 		},
