@@ -35,7 +35,6 @@
 		"@typescript-eslint/parser": "^5.60.0",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^8.8.0",
-		"magic-string": "^0.30.5",
 		"prettier": "^2.8.8",
 		"svelte": "^4.0.0",
 		"tsup": "^8.0.1",
@@ -51,6 +50,7 @@
 		"pnpm": ">=8.6.3"
 	},
 	"dependencies": {
-		"estree-walker": "^3.0.3"
+		"estree-walker": "^3.0.3",
+		"magic-string": "^0.30.5"
 	}
 }
