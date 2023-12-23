@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
 import {
 	simple,
@@ -13,7 +13,7 @@ describe('Simple Builder - Identifiers', () => {
 	const { markup } = preprocessMeltUI();
 	if (!markup) throw new Error('Should always exist');
 
-	it('simple', async () => {
+	test('simple', async () => {
 		const processed = await markup({
 			content: simple,
 		});
@@ -21,7 +21,7 @@ describe('Simple Builder - Identifiers', () => {
 		expect(processed?.code).toBe(simpleExpected);
 	});
 
-	it('aliased expression', async () => {
+	test('aliased expression', async () => {
 		const processed = await markup({
 			content: aliasedExpression,
 		});
@@ -29,7 +29,7 @@ describe('Simple Builder - Identifiers', () => {
 		expect(processed?.code).toBe(aliasedExpressionExpected);
 	});
 
-	it('aliased melt action', async () => {
+	test('aliased melt action', async () => {
 		const { markup: aliasMarkup } = preprocessMeltUI({ alias: ['melt', '_melt'] });
 		if (!aliasMarkup) throw new Error('Should always exist');
 

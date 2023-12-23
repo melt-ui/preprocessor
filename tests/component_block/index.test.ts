@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
 import {
 	basicComponent,
@@ -29,7 +29,7 @@ describe('Component Block', () => {
 	const { markup } = preprocessMeltUI();
 	if (!markup) throw new Error('Should always exist');
 
-	it('basic component', async () => {
+	test('basic component', async () => {
 		const processed = await markup({
 			content: basicComponent,
 		});
@@ -37,7 +37,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(basicComponentExpected);
 	});
 
-	it('basic shorthand', async () => {
+	test('basic shorthand', async () => {
 		const processed = await markup({
 			content: basicShorthand,
 		});
@@ -45,7 +45,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(basicShorthandExpected);
 	});
 
-	it('basic identifier', async () => {
+	test('basic identifier', async () => {
 		const processed = await markup({
 			content: basicIdentifier,
 		});
@@ -53,7 +53,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(basicIdentifierExpected);
 	});
 
-	it('control', async () => {
+	test('control', async () => {
 		const processed = await markup({
 			content: control,
 		});
@@ -61,7 +61,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(controlExpected);
 	});
 
-	it('duplicate args', async () => {
+	test('duplicate args', async () => {
 		const processed = await markup({
 			content: duplicateIdentifier,
 		});
@@ -69,7 +69,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(duplicateIdentifierExpected);
 	});
 
-	it('destructured value and error', async () => {
+	test('destructured value and error', async () => {
 		const processed = await markup({
 			content: destructured,
 		});
@@ -77,7 +77,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(destructuredExpected);
 	});
 
-	it('nested - lexical shadowing', async () => {
+	test('nested - lexical shadowing', async () => {
 		const processed = await markup({
 			content: scoped,
 		});
@@ -85,7 +85,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(scopedExpected);
 	});
 
-	it('nested - upper identifier only', async () => {
+	test('nested - upper identifier only', async () => {
 		const processed = await markup({
 			content: nestedUpper,
 		});
@@ -93,7 +93,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(nestedUpperExpected);
 	});
 
-	it('nested - lower identifier only', async () => {
+	test('nested - lower identifier only', async () => {
 		const processed = await markup({
 			content: nestedLower,
 		});
@@ -101,7 +101,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(nestedLowerExpected);
 	});
 
-	it('nested - both identifiers', async () => {
+	test('nested - both identifiers', async () => {
 		const processed = await markup({
 			content: nestedBoth,
 		});
@@ -109,7 +109,7 @@ describe('Component Block', () => {
 		expect(processed?.code).toBe(nestedBothExpected);
 	});
 
-	it('slot template - both identifiers', async () => {
+	test('slot template - both identifiers', async () => {
 		const processed = await markup({
 			content: slotTemplate,
 		});

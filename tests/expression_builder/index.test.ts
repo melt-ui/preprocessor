@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
 import {
 	callExpression,
@@ -13,7 +13,7 @@ describe('Expression Builder', () => {
 	const { markup } = preprocessMeltUI();
 	if (!markup) throw new Error('Should always exist');
 
-	it('CallExpression', async () => {
+	test('CallExpression', async () => {
 		const processed = await markup({
 			content: callExpression,
 		});
@@ -21,7 +21,7 @@ describe('Expression Builder', () => {
 		expect(processed?.code).toBe(callExpressionExpected);
 	});
 
-	it('ObjectExpression', async () => {
+	test('ObjectExpression', async () => {
 		const processed = await markup({
 			content: objExpression,
 		});
@@ -29,7 +29,7 @@ describe('Expression Builder', () => {
 		expect(processed?.code).toBe(objExpressionExpected);
 	});
 
-	it('Multi CallExpression', async () => {
+	test('Multi CallExpression', async () => {
 		const processed = await markup({
 			content: multiExpressions,
 		});
