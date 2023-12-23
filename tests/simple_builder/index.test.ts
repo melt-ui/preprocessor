@@ -1,13 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
-import {
-	simple,
-	simpleExpected,
-	aliasedExpression,
-	aliasedExpressionExpected,
-	aliasedMelt,
-	aliasedMeltExpected,
-} from './index.svelte';
+import * as t from './index.svelte';
 
 describe('Simple Builder - Identifiers', () => {
 	const { markup } = preprocessMeltUI();
@@ -15,18 +8,18 @@ describe('Simple Builder - Identifiers', () => {
 
 	test('simple', async () => {
 		const processed = await markup({
-			content: simple,
+			content: t.simple,
 		});
 
-		expect(processed?.code).toBe(simpleExpected);
+		expect(processed?.code).toBe(t.simpleExpected);
 	});
 
 	test('aliased expression', async () => {
 		const processed = await markup({
-			content: aliasedExpression,
+			content: t.aliasedExpression,
 		});
 
-		expect(processed?.code).toBe(aliasedExpressionExpected);
+		expect(processed?.code).toBe(t.aliasedExpressionExpected);
 	});
 
 	test('aliased melt action', async () => {
@@ -34,9 +27,9 @@ describe('Simple Builder - Identifiers', () => {
 		if (!aliasMarkup) throw new Error('Should always exist');
 
 		const processed = await aliasMarkup({
-			content: aliasedMelt,
+			content: t.aliasedMelt,
 		});
 
-		expect(processed?.code).toBe(aliasedMeltExpected);
+		expect(processed?.code).toBe(t.aliasedMeltExpected);
 	});
 });

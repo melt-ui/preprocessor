@@ -1,27 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
-import {
-	basicEach,
-	basicEachExpected,
-	basicIdentifierEach,
-	basicIdentifierEachExpected,
-	controlEach,
-	controlEachExpected,
-	destructuredEach,
-	destructuredEachExpected,
-	duplicateEach,
-	duplicateEachExpected,
-	nestedEachUpper,
-	nestedEachUpperExpected,
-	nestedEachBoth,
-	nestedEachBothExpected,
-	nestedEachLower,
-	nestedEachLowerExpected,
-	scopedEach,
-	scopedEachExpected,
-	thumbEach,
-	thumbEachExpected,
-} from './index.svelte';
+import * as t from './index.svelte';
 
 describe('Each Block', () => {
 	const { markup } = preprocessMeltUI();
@@ -29,81 +8,81 @@ describe('Each Block', () => {
 
 	test('basic each', async () => {
 		const processed = await markup({
-			content: basicEach,
+			content: t.basicEach,
 		});
 
-		expect(processed?.code).toBe(basicEachExpected);
+		expect(processed?.code).toBe(t.basicEachExpected);
 	});
 
 	test('basic identifier each', async () => {
 		const processed = await markup({
-			content: basicIdentifierEach,
+			content: t.basicIdentifierEach,
 		});
 
-		expect(processed?.code).toBe(basicIdentifierEachExpected);
+		expect(processed?.code).toBe(t.basicIdentifierEachExpected);
 	});
 
 	test('control each', async () => {
 		const processed = await markup({
-			content: controlEach,
+			content: t.controlEach,
 		});
 
-		expect(processed?.code).toBe(controlEachExpected);
+		expect(processed?.code).toBe(t.controlEachExpected);
 	});
 
 	test('duplicate args each', async () => {
 		const processed = await markup({
-			content: duplicateEach,
+			content: t.duplicateEach,
 		});
 
-		expect(processed?.code).toBe(duplicateEachExpected);
+		expect(processed?.code).toBe(t.duplicateEachExpected);
 	});
 
 	test('destructured context each', async () => {
 		const processed = await markup({
-			content: destructuredEach,
+			content: t.destructuredEach,
 		});
 
-		expect(processed?.code).toBe(destructuredEachExpected);
+		expect(processed?.code).toBe(t.destructuredEachExpected);
 	});
 
 	test('nested each - lexical shadowing', async () => {
 		const processed = await markup({
-			content: scopedEach,
+			content: t.scopedEach,
 		});
 
-		expect(processed?.code).toBe(scopedEachExpected);
+		expect(processed?.code).toBe(t.scopedEachExpected);
 	});
 
 	test('nested each - upper identifier only', async () => {
 		const processed = await markup({
-			content: nestedEachUpper,
+			content: t.nestedEachUpper,
 		});
 
-		expect(processed?.code).toBe(nestedEachUpperExpected);
+		expect(processed?.code).toBe(t.nestedEachUpperExpected);
 	});
 
 	test('nested each - lower identifier only', async () => {
 		const processed = await markup({
-			content: nestedEachLower,
+			content: t.nestedEachLower,
 		});
 
-		expect(processed?.code).toBe(nestedEachLowerExpected);
+		expect(processed?.code).toBe(t.nestedEachLowerExpected);
 	});
 
 	test('nested each - both identifiers', async () => {
 		const processed = await markup({
-			content: nestedEachBoth,
+			content: t.nestedEachBoth,
 		});
 
-		expect(processed?.code).toBe(nestedEachBothExpected);
+		expect(processed?.code).toBe(t.nestedEachBothExpected);
 	});
 
 	test('each block with no reference to the context', async () => {
 		const processed = await markup({
-			content: thumbEach,
+			content: t.thumbEach,
 		});
 
-		expect(processed?.code).toBe(thumbEachExpected);
+		expect(processed?.code).toBe(t.thumbEachExpected);
 	});
 });
