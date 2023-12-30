@@ -23,6 +23,7 @@ const RUNES = [
 	'$inspect.with',
 	'$props',
 	'$state',
+	'$state.frozen',
 ];
 
 /**
