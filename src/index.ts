@@ -28,6 +28,12 @@ export type PreprocessOptions = {
 	 * @default "melt"
 	 */
 	alias?: string | string[];
+	/**
+	 * Path to a svelte config file, either absolute or relative to `process.cwd()` (usually the root).
+	 *
+	 * Set to `false` to ignore the svelte config file.
+	 */
+	svelteConfigPath?: string | false;
 };
 
 /**
@@ -67,7 +73,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			let scriptContentNode: { start: number; end: number } | undefined;
 			const ast = parse(content, { css: false, filename });
-			const runesMode = isSvelte5 && isRuneMode(ast);
+			const runesMode = isSvelte5 && (await isRuneMode(ast, options));
 
 			// Grab the Script node so we can inject any hoisted expressions later
 			if (ast.instance) {

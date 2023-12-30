@@ -1,8 +1,10 @@
 import { walk as estree_walk } from 'estree-walker';
+import { loadSvelteConfig } from './load-svelte-config.js';
 
 import type { Ast, TemplateNode } from 'svelte/types/compiler/interfaces';
 import type { Node } from './types.js';
 import type { CallExpression } from 'estree';
+import type { PreprocessOptions } from './index.js';
 
 export function isAliasedAction(name: string, alias: string | string[]): boolean {
 	if (typeof alias === 'string') {
@@ -29,7 +31,10 @@ const RUNES = [
  * 	2. If `svelte-config.compilerOptions.runes` === `true`
  * 	3. If a rune is present in the component (`$state`, `$derived`, `$effect`, etc.)
  */
-export function isRuneMode(ast: Ast): boolean {
+export async function isRuneMode(
+	ast: Ast,
+	options?: PreprocessOptions
+): Promise<boolean> {
 	// check if the component has `<svelte:options runes />`
 	for (const element of ast.html.children ?? []) {
 		if (element.type !== 'Options' || element.name !== 'svelte:options') continue;
@@ -49,7 +54,10 @@ export function isRuneMode(ast: Ast): boolean {
 	}
 
 	// `svelte-config.compilerOptions.runes`
-	// TODO: not sure how to do this yet
+	const svelteConfig = await loadSvelteConfig(options?.svelteConfigPath);
+	if (typeof svelteConfig?.compilerOptions?.runes === 'boolean') {
+		return svelteConfig.compilerOptions.runes;
+	}
 
 	// a rune is present in the component
 	let hasRunes = false;
