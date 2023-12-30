@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.3.0
+
+### Minor Changes
+
+- 685f181: feat: Added support for Svelte 5 Runes Mode
+
 ## 0.2.0
 
 ### Minor Changes
