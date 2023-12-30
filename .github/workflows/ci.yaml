@@ -36,8 +36,7 @@ jobs:
           run_install: true
       - run: pnpm run check
       
-
-  Tests:
+  Svelte-4-Tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -45,5 +44,16 @@ jobs:
         with:
           version: 8.6.3
           run_install: true
+      - run: pnpm run test
+
+  Svelte-5-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.3
+          run_install: true
+      - run: pnpm add -D svelte@next
       - run: pnpm run test
       
