@@ -2,8 +2,8 @@ import { walk as estree_walk } from 'estree-walker';
 import { loadSvelteConfig } from './load-svelte-config.js';
 
 import type { Ast, TemplateNode } from 'svelte/types/compiler/interfaces';
-import type { Node } from './types.js';
 import type { CallExpression } from 'estree';
+import type { Node } from './types.js';
 import type { PreprocessOptions } from './index.js';
 
 export function isAliasedAction(name: string, alias: string | string[]): boolean {
