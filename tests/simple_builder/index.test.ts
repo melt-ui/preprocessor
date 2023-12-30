@@ -3,7 +3,7 @@ import { preprocessMeltUI } from '$pkg/index';
 import * as t from './index.svelte';
 
 describe('Simple Builder - Identifiers', () => {
-	const { markup } = preprocessMeltUI();
+	const { markup } = preprocessMeltUI({ svelteConfigPath: false });
 	if (!markup) throw new Error('Should always exist');
 
 	test('simple', async () => {
@@ -23,7 +23,10 @@ describe('Simple Builder - Identifiers', () => {
 	});
 
 	test('aliased melt action', async () => {
-		const { markup: aliasMarkup } = preprocessMeltUI({ alias: ['melt', '_melt'] });
+		const { markup: aliasMarkup } = preprocessMeltUI({
+			alias: ['melt', '_melt'],
+			svelteConfigPath: false,
+		});
 		if (!aliasMarkup) throw new Error('Should always exist');
 
 		const processed = await aliasMarkup({

@@ -3,7 +3,7 @@ import { preprocessMeltUI } from '$pkg/index';
 import * as t from './index.svelte';
 
 describe('Each Block', () => {
-	const { markup } = preprocessMeltUI();
+	const { markup } = preprocessMeltUI({ svelteConfigPath: false });
 	if (!markup) throw new Error('Should always exist');
 
 	test('basic each', async () => {

@@ -3,7 +3,7 @@ import { preprocessMeltUI } from '$pkg/index';
 import * as t from './index.svelte';
 
 describe('Expression Builder', () => {
-	const { markup } = preprocessMeltUI();
+	const { markup } = preprocessMeltUI({ svelteConfigPath: false });
 	if (!markup) throw new Error('Should always exist');
 
 	test('CallExpression', async () => {
