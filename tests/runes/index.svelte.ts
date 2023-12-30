@@ -183,3 +183,109 @@ export const svelteOptionsExplicitDisabledExpected = `
 
 <div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
 `;
+
+export const svelteConfigExplicitEnabled = `
+<script>
+	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
+
+	const builder = writable(({ arg1, arg2 }) => {
+		return {
+			role: 'Mock',
+			action: () => {},
+		};
+	});
+</script>
+
+<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+`;
+
+export const svelteConfigExplicitEnabledExpected = `
+<script>
+	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
+
+	const builder = writable(({ arg1, arg2 }) => {
+		return {
+			role: 'Mock',
+			action: () => {},
+		};
+	});
+
+	let __MELTUI_BUILDER_0__ = $derived($builder({ arg1: 1, arg2: '' }));
+</script>
+
+<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
+`;
+
+export const svelteConfigExplicitDisabled = `
+<script>
+	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
+
+	const builder = writable(({ arg1, arg2 }) => {
+		return {
+			role: 'Mock',
+			action: () => {},
+		};
+	});
+</script>
+
+<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+`;
+
+export const svelteConfigExplicitDisabledExpected = `
+<script>
+	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
+
+	const builder = writable(({ arg1, arg2 }) => {
+		return {
+			role: 'Mock',
+			action: () => {},
+		};
+	});
+
+	$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
+</script>
+
+<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
+`;
+
+export const ignoredConfig = `
+<script>
+	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
+
+    let count = $state(0);
+
+	const builder = writable(({ arg1, arg2 }) => {
+		return {
+			role: 'Mock',
+			action: () => {},
+		};
+	});
+</script>
+
+<div use:melt={$builder({ arg1: 1, arg2: '' })} />
+`;
+
+export const ignoredConfigExpected = `
+<script>
+	import { writable } from 'svelte/store';
+	import { melt } from '@melt-ui/svelte';
+
+    let count = $state(0);
+
+	const builder = writable(({ arg1, arg2 }) => {
+		return {
+			role: 'Mock',
+			action: () => {},
+		};
+	});
+
+	$: __MELTUI_BUILDER_0__ = $builder({ arg1: 1, arg2: '' });
+</script>
+
+<div {...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action />
+`;
