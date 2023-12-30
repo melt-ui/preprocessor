@@ -1,42 +1,38 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
-import {
-	simple,
-	simpleExpected,
-	aliasedExpression,
-	aliasedExpressionExpected,
-	aliasedMelt,
-	aliasedMeltExpected,
-} from './index.svelte';
+import * as t from './index.svelte';
 
 describe('Simple Builder - Identifiers', () => {
-	const { markup } = preprocessMeltUI();
+	const { markup } = preprocessMeltUI({ svelteConfigPath: false });
 	if (!markup) throw new Error('Should always exist');
 
-	it('simple', async () => {
+	test('simple', async () => {
 		const processed = await markup({
-			content: simple,
+			content: t.simple,
 		});
 
-		expect(processed?.code).toBe(simpleExpected);
+		expect(processed?.code).toBe(t.simpleExpected);
 	});
 
-	it('aliased expression', async () => {
+	test('aliased expression', async () => {
 		const processed = await markup({
-			content: aliasedExpression,
+			content: t.aliasedExpression,
 		});
 
-		expect(processed?.code).toBe(aliasedExpressionExpected);
+		expect(processed?.code).toBe(t.aliasedExpressionExpected);
 	});
 
-	it('aliased melt action', async () => {
-		const { markup: aliasMarkup } = preprocessMeltUI({ alias: ['melt', '_melt'] });
+	test('aliased melt action', async () => {
+		const { markup: aliasMarkup } = preprocessMeltUI({
+			alias: ['melt', '_melt'],
+			svelteConfigPath: false,
+		});
 		if (!aliasMarkup) throw new Error('Should always exist');
 
 		const processed = await aliasMarkup({
-			content: aliasedMelt,
+			content: t.aliasedMelt,
 		});
 
-		expect(processed?.code).toBe(aliasedMeltExpected);
+		expect(processed?.code).toBe(t.aliasedMeltExpected);
 	});
 });

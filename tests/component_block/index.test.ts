@@ -1,119 +1,96 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
-import {
-	basicComponent,
-	basicComponentExpected,
-	basicIdentifier,
-	basicIdentifierExpected,
-	control,
-	controlExpected,
-	destructured,
-	destructuredExpected,
-	duplicateIdentifier,
-	duplicateIdentifierExpected,
-	nestedUpper,
-	nestedUpperExpected,
-	nestedBoth,
-	nestedBothExpected,
-	nestedLower,
-	nestedLowerExpected,
-	scoped,
-	scopedExpected,
-	basicShorthand,
-	basicShorthandExpected,
-	slotTemplate,
-	slotTemplateExpected,
-} from './index.svelte';
+import * as t from './index.svelte';
 
 describe('Component Block', () => {
-	const { markup } = preprocessMeltUI();
+	const { markup } = preprocessMeltUI({ svelteConfigPath: false });
 	if (!markup) throw new Error('Should always exist');
 
-	it('basic component', async () => {
+	test('basic component', async () => {
 		const processed = await markup({
-			content: basicComponent,
+			content: t.basicComponent,
 		});
 
-		expect(processed?.code).toBe(basicComponentExpected);
+		expect(processed?.code).toBe(t.basicComponentExpected);
 	});
 
-	it('basic shorthand', async () => {
+	test('basic shorthand', async () => {
 		const processed = await markup({
-			content: basicShorthand,
+			content: t.basicShorthand,
 		});
 
-		expect(processed?.code).toBe(basicShorthandExpected);
+		expect(processed?.code).toBe(t.basicShorthandExpected);
 	});
 
-	it('basic identifier', async () => {
+	test('basic identifier', async () => {
 		const processed = await markup({
-			content: basicIdentifier,
+			content: t.basicIdentifier,
 		});
 
-		expect(processed?.code).toBe(basicIdentifierExpected);
+		expect(processed?.code).toBe(t.basicIdentifierExpected);
 	});
 
-	it('control', async () => {
+	test('control', async () => {
 		const processed = await markup({
-			content: control,
+			content: t.control,
 		});
 
-		expect(processed?.code).toBe(controlExpected);
+		expect(processed?.code).toBe(t.controlExpected);
 	});
 
-	it('duplicate args', async () => {
+	test('duplicate args', async () => {
 		const processed = await markup({
-			content: duplicateIdentifier,
+			content: t.duplicateIdentifier,
 		});
 
-		expect(processed?.code).toBe(duplicateIdentifierExpected);
+		expect(processed?.code).toBe(t.duplicateIdentifierExpected);
 	});
 
-	it('destructured value and error', async () => {
+	test('destructured value and error', async () => {
 		const processed = await markup({
-			content: destructured,
+			content: t.destructured,
 		});
 
-		expect(processed?.code).toBe(destructuredExpected);
+		expect(processed?.code).toBe(t.destructuredExpected);
 	});
 
-	it('nested - lexical shadowing', async () => {
+	test('nested - lexical shadowing', async () => {
 		const processed = await markup({
-			content: scoped,
+			content: t.scoped,
 		});
 
-		expect(processed?.code).toBe(scopedExpected);
+		expect(processed?.code).toBe(t.scopedExpected);
 	});
 
-	it('nested - upper identifier only', async () => {
+	test('nested - upper identifier only', async () => {
 		const processed = await markup({
-			content: nestedUpper,
+			content: t.nestedUpper,
 		});
 
-		expect(processed?.code).toBe(nestedUpperExpected);
+		expect(processed?.code).toBe(t.nestedUpperExpected);
 	});
 
-	it('nested - lower identifier only', async () => {
+	test('nested - lower identifier only', async () => {
 		const processed = await markup({
-			content: nestedLower,
+			content: t.nestedLower,
 		});
 
-		expect(processed?.code).toBe(nestedLowerExpected);
+		expect(processed?.code).toBe(t.nestedLowerExpected);
 	});
 
-	it('nested - both identifiers', async () => {
+	test('nested - both identifiers', async () => {
 		const processed = await markup({
-			content: nestedBoth,
+			content: t.nestedBoth,
 		});
 
-		expect(processed?.code).toBe(nestedBothExpected);
+		expect(processed?.code).toBe(t.nestedBothExpected);
 	});
 
-	it('slot template - both identifiers', async () => {
+	test('slot template - both identifiers', async () => {
 		const processed = await markup({
-			content: slotTemplate,
+			content: t.slotTemplate,
 		});
 
-		expect(processed?.code).toBe(slotTemplateExpected);
+		expect(processed?.code).toBe(t.slotTemplateExpected);
 	});
 });

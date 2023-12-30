@@ -1,39 +1,32 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
-import {
-	callExpression,
-	callExpressionExpected,
-	objExpression,
-	objExpressionExpected,
-	multiExpressions,
-	multiExpressionsExpected,
-} from './index.svelte';
+import * as t from './index.svelte';
 
 describe('Expression Builder', () => {
-	const { markup } = preprocessMeltUI();
+	const { markup } = preprocessMeltUI({ svelteConfigPath: false });
 	if (!markup) throw new Error('Should always exist');
 
-	it('CallExpression', async () => {
+	test('CallExpression', async () => {
 		const processed = await markup({
-			content: callExpression,
+			content: t.callExpression,
 		});
 
-		expect(processed?.code).toBe(callExpressionExpected);
+		expect(processed?.code).toBe(t.callExpressionExpected);
 	});
 
-	it('ObjectExpression', async () => {
+	test('ObjectExpression', async () => {
 		const processed = await markup({
-			content: objExpression,
+			content: t.objExpression,
 		});
 
-		expect(processed?.code).toBe(objExpressionExpected);
+		expect(processed?.code).toBe(t.objExpressionExpected);
 	});
 
-	it('Multi CallExpression', async () => {
+	test('Multi CallExpression', async () => {
 		const processed = await markup({
-			content: multiExpressions,
+			content: t.multiExpressions,
 		});
 
-		expect(processed?.code).toBe(multiExpressionsExpected);
+		expect(processed?.code).toBe(t.multiExpressionsExpected);
 	});
 });

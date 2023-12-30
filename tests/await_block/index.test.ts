@@ -1,109 +1,88 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { preprocessMeltUI } from '$pkg/index';
-import {
-	basicAwait,
-	basicAwaitExpected,
-	basicIdentifierAwait,
-	basicIdentifierAwaitExpected,
-	controlAwait,
-	controlAwaitExpected,
-	destructuredAwait,
-	destructuredAwaitExpected,
-	duplicateIdentifierAwait,
-	duplicateIdentifierAwaitExpected,
-	nestedAwaitUpper,
-	nestedAwaitUpperExpected,
-	nestedAwaitBoth,
-	nestedAwaitBothExpected,
-	nestedAwaitLower,
-	nestedAwaitLowerExpected,
-	scopedAwait,
-	scopedAwaitExpected,
-	basicShorthandAwait,
-	basicShorthandAwaitExpected,
-} from './index.svelte';
+import * as t from './index.svelte';
 
 describe('Await Block', () => {
-	const { markup } = preprocessMeltUI();
+	const { markup } = preprocessMeltUI({ svelteConfigPath: false });
 	if (!markup) throw new Error('Should always exist');
 
-	it('basic await', async () => {
+	test('basic await', async () => {
 		const processed = await markup({
-			content: basicAwait,
+			content: t.basicAwait,
 		});
 
-		expect(processed?.code).toBe(basicAwaitExpected);
+		expect(processed?.code).toBe(t.basicAwaitExpected);
 	});
 
-	it('basic shorthand await', async () => {
+	test('basic shorthand await', async () => {
 		const processed = await markup({
-			content: basicShorthandAwait,
+			content: t.basicShorthandAwait,
 		});
 
-		expect(processed?.code).toBe(basicShorthandAwaitExpected);
+		expect(processed?.code).toBe(t.basicShorthandAwaitExpected);
 	});
 
-	it('basic identifier await', async () => {
+	test('basic identifier await', async () => {
 		const processed = await markup({
-			content: basicIdentifierAwait,
+			content: t.basicIdentifierAwait,
 		});
 
-		expect(processed?.code).toBe(basicIdentifierAwaitExpected);
+		expect(processed?.code).toBe(t.basicIdentifierAwaitExpected);
 	});
 
-	it('control await', async () => {
+	test('control await', async () => {
 		const processed = await markup({
-			content: controlAwait,
+			content: t.controlAwait,
 		});
 
-		expect(processed?.code).toBe(controlAwaitExpected);
+		expect(processed?.code).toBe(t.controlAwaitExpected);
 	});
 
-	it('duplicate args await', async () => {
+	test('duplicate args await', async () => {
 		const processed = await markup({
-			content: duplicateIdentifierAwait,
+			content: t.duplicateIdentifierAwait,
 		});
 
-		expect(processed?.code).toBe(duplicateIdentifierAwaitExpected);
+		expect(processed?.code).toBe(t.duplicateIdentifierAwaitExpected);
 	});
 
-	it('destructured value and error await', async () => {
+	test('destructured value and error await', async () => {
 		const processed = await markup({
-			content: destructuredAwait,
+			content: t.destructuredAwait,
 		});
 
-		expect(processed?.code).toBe(destructuredAwaitExpected);
+		expect(processed?.code).toBe(t.destructuredAwaitExpected);
 	});
 
-	it('nested await - lexical shadowing', async () => {
+	test('nested await - lexical shadowing', async () => {
 		const processed = await markup({
-			content: scopedAwait,
+			content: t.scopedAwait,
 		});
 
-		expect(processed?.code).toBe(scopedAwaitExpected);
+		expect(processed?.code).toBe(t.scopedAwaitExpected);
 	});
 
-	it('nested await - upper identifier only', async () => {
+	test('nested await - upper identifier only', async () => {
 		const processed = await markup({
-			content: nestedAwaitUpper,
+			content: t.nestedAwaitUpper,
 		});
 
-		expect(processed?.code).toBe(nestedAwaitUpperExpected);
+		expect(processed?.code).toBe(t.nestedAwaitUpperExpected);
 	});
 
-	it('nested await - lower identifier only', async () => {
+	test('nested await - lower identifier only', async () => {
 		const processed = await markup({
-			content: nestedAwaitLower,
+			content: t.nestedAwaitLower,
 		});
 
-		expect(processed?.code).toBe(nestedAwaitLowerExpected);
+		expect(processed?.code).toBe(t.nestedAwaitLowerExpected);
 	});
 
-	it('nested await - both identifiers', async () => {
+	test('nested await - both identifiers', async () => {
 		const processed = await markup({
-			content: nestedAwaitBoth,
+			content: t.nestedAwaitBoth,
 		});
 
-		expect(processed?.code).toBe(nestedAwaitBothExpected);
+		expect(processed?.code).toBe(t.nestedAwaitBothExpected);
 	});
 });

@@ -1,6 +1,6 @@
 import MagicString from 'magic-string';
-import { parse, type PreprocessorGroup } from 'svelte/compiler';
-import { getMeltBuilderName, walk } from './helpers.js';
+import { parse, type PreprocessorGroup, VERSION } from 'svelte/compiler';
+import { getMeltBuilderName, isRuneMode, walk } from './helpers.js';
 import { traverse } from './traverse/index.js';
 
 import type { TemplateNode } from 'svelte/types/compiler/interfaces';
@@ -28,6 +28,12 @@ export type PreprocessOptions = {
 	 * @default "melt"
 	 */
 	alias?: string | string[];
+	/**
+	 * Path to a svelte config file, either absolute or relative to `process.cwd()`.
+	 *
+	 * Set to `false` to ignore the svelte config file.
+	 */
+	svelteConfigPath?: string | false;
 };
 
 /**
@@ -53,6 +59,7 @@ export type PreprocessOptions = {
  * ```
  */
 export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup {
+	const isSvelte5 = VERSION.startsWith('5');
 	return {
 		name: 'MeltUI Preprocess',
 		markup: async ({ content, filename }) => {
@@ -66,6 +73,7 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 
 			let scriptContentNode: { start: number; end: number } | undefined;
 			const ast = parse(content, { css: false, filename });
+			const runesMode = isSvelte5 && (await isRuneMode(ast, options));
 
 			// Grab the Script node so we can inject any hoisted expressions later
 			if (ast.instance) {
@@ -97,7 +105,11 @@ export function preprocessMeltUI(options?: PreprocessOptions): PreprocessorGroup
 				} else {
 					// otherwise, we'll take the expression and hoist it into the script node
 					identifier = getMeltBuilderName(config.builderCount++);
-					identifiersToInsert += `\t$: ${identifier} = ${builder.expression.contents};\n`;
+					if (runesMode) {
+						identifiersToInsert += `\tlet ${identifier} = $derived(${builder.expression.contents});\n`;
+					} else {
+						identifiersToInsert += `\t$: ${identifier} = ${builder.expression.contents};\n`;
+					}
 				}
 
 				const attributes = `{...${identifier}} use:${identifier}.action`;
