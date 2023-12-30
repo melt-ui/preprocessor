@@ -29,7 +29,7 @@ export type PreprocessOptions = {
 	 */
 	alias?: string | string[];
 	/**
-	 * Path to a svelte config file, either absolute or relative to `process.cwd()` (usually the root).
+	 * Path to a svelte config file, either absolute or relative to `process.cwd()`.
 	 *
 	 * Set to `false` to ignore the svelte config file.
 	 */
