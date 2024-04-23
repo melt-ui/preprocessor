@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.3.1
+
+### Patch Changes
+
+- 939b6fe: chore: Removed required engine restrictions
+
 ## 0.3.0
 
 ### Minor Changes
