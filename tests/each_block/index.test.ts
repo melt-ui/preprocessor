@@ -78,11 +78,19 @@ describe('Each Block', () => {
 		expect(processed?.code).toBe(t.nestedEachBothExpected);
 	});
 
-	test('each block with no reference to the context', async () => {
+	test('with no reference to the context', async () => {
 		const processed = await markup({
 			content: t.thumbEach,
 		});
 
 		expect(processed?.code).toBe(t.thumbEachExpected);
+	});
+
+	test('with existing const declaration', async () => {
+		const processed = await markup({
+			content: t.existingConst,
+		});
+
+		expect(processed?.code).toBe(t.existingConstExpected);
 	});
 });
