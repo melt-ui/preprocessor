@@ -1,5 +1,11 @@
 # @melt-ui/pp
 
+## 0.3.2
+
+### Patch Changes
+
+- f15475e: fix: Existing `@const` tag declarations in the template are now considered
+
 ## 0.3.1
 
 ### Patch Changes
