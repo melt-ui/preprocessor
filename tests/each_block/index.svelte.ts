@@ -417,6 +417,7 @@ export const existingConst = `
 
 	{#each $value as { id }, i}
 		{@const itemId = id}
+		{@const itemId2 = id}
 		<span
 			use:melt={$item(itemId)}
 			class="block h-5 w-5 rounded-full bg-white focus:ring-4 focus:ring-black/40"
@@ -445,6 +446,7 @@ export const existingConstExpected = `
 
 	{#each $value as { id }, i}
 		{@const itemId = id}
+		{@const itemId2 = id}
 		{@const __MELTUI_BUILDER_0__ = $item(itemId)}
 		<span
 			{...__MELTUI_BUILDER_0__} use:__MELTUI_BUILDER_0__.action
