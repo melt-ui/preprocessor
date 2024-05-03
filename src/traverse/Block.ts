@@ -87,10 +87,22 @@ function handleActionNode({ config, actionNode, blockNode }: HandleActionNodeArg
 			firstChild = blockNode.children?.at(1);
 		}
 
+		// checks if there are any existing `{@const}` tags. if there are, we want to
+		// append the injected block at the end
+		let lastConst: TemplateNode | undefined;
+		for (const child of blockNode.children ?? []) {
+			if (child.type === 'ConstTag') lastConst = child;
+		}
+
 		// convert this into a {@const} block
-		const start = firstChild?.start;
+		const pos = lastConst?.end ?? firstChild?.start;
 		const constIdentifier = getMeltBuilderName(config.builderCount++);
-		if (!start) throw Error('This is unreachable');
+		if (!pos) throw Error('This is unreachable');
+
+		// we'll add the indent and new line depending on where we're injecting it
+		const constTag = lastConst
+			? `\n${indent}{@const ${constIdentifier} = ${expressionContent}}`
+			: `{@const ${constIdentifier} = ${expressionContent}}\n${indent}`;
 
 		config.builders.push({
 			identifierName: constIdentifier,
@@ -98,10 +110,7 @@ function handleActionNode({ config, actionNode, blockNode }: HandleActionNodeArg
 			endPos: actionNode.end,
 		});
 
-		config.markup.prependRight(
-			start,
-			`{@const ${constIdentifier} = ${expressionContent}}\n${indent}`
-		);
+		config.markup.prependRight(pos, constTag);
 	} else {
 		// if it's just an identifier, add it to the list of builders so that it can
 		// later be transformed into the correct syntax
